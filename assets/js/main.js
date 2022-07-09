@@ -12,7 +12,7 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
   navigation: {
     nextEl: '.scene-nav__button-next',
     prevEl: '.scene-nav__button-prev'
-  },
+  }
 
   on: {
     activeIndexChange: function () {

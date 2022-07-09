@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- swiperjs -->
+  <link rel="stylesheet" href="./assets/libs/swiper/swiper-bundle.min.css" />
+
+    <!-- CSS -->
+  <link rel="stylesheet" href="./assets/css/main.css">
+  <link rel="stylesheet" href="./assets/css/media.css">
+
+  <title>3D-carousel</title>
+</head>
+<body>
+  
+  <div class="anim-carousel">
+    <div class="anim-carousel__content">
+
+      <header class="header">
+        <div class="header__inner">
+          <!-- Burger menu button -->
+          <div class="header-menu">
+            <div class="header-menu__icon-item"></div>
+            <div class="header-menu__icon-item"></div>
+            <div class="header-menu__icon-item"></div>
+          </div>
+
+          <h1 class="header__logo">marvel</h1>
+
+          <!-- User profile button -->
+          <a href="#" class="user-profile__button">
+            <!-- Import SVG icon -->
+            <object class="user-profile__icon" type="image/svg+xml" data="./assets/icons/user-icon.svg" width="20" height="20">
+              Your browser does not support SVG.
+            </object>
+          </a>
+        </div>
+      </header>
+    
+    
+      <main class="scene">
+        <div class="scene-wrapper">
+          <!-- Scene name -->
+          <h1 class="scene__title">choose character</h1>
+  
+          <!-- swiper (class 'swiper' is required) -->
+          <div class="swiper scene-carousel">
+
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper scene-carousel__wrapper">
+
+                <!-- Slides -->
+                <div class="swiper-slide scene-hero" data-background-color="rgb(89 119 145 / 100%)">
+                  
+                  <img class="scene-hero__image" src="./assets/images/tor.png" alt="Your browser does not support this image.">
+
+                  <div class="hero-description">
+                    <h4 class="hero-description__title">avengers</h4>
+                    <h1 class="hero-description__name">Thor Odison</h1>
+                    <div class="hero-description__content hero-desc">
+                      <h5 class="hero-desc__table-title">Description</h5>
+                      <table class="hero-desc__table">
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Name:</th>
+                          <th class="hero-desc__table-row-text">Thor Odison</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Growth:</th>
+                          <th class="hero-desc__table-row-text">6'6"</th>
+                        </tr>
+                        <tr class="hero-desc-content__table-row">
+                          <th class="hero-desc__table-row-name">Breed</th>
+                          <td class="th hero-desc__table-row-text">Asgardian</td>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">One more item:</th>
+                          <th class="hero-desc__table-row-text">Some text</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Aliases:</th>
+                          <th class="hero-desc__table-row-text">
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                          </th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="hero-description__additions">
+                      <h5 class="hero-description__additions-title">Watch movie</h5>
+                      <div class="hero-description__additions-list">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="swiper-slide scene-hero" data-background-color="rgb(89 119 145 / 100%)">
+                  
+                  <img class="scene-hero__image" src="./assets/images/blackwidow.png" alt="Your browser does not support this image.">
+
+                  <div class="hero-description">
+                    <h4 class="hero-description__title">avengers</h4>
+                    <h1 class="hero-description__name">Thor Odison</h1>
+                    <div class="hero-description__content hero-desc">
+                      <h5 class="hero-desc__table-title">Description</h5>
+                      <table class="hero-desc__table">
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Name:</th>
+                          <th class="hero-desc__table-row-text">Thor Odison</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Growth:</th>
+                          <th class="hero-desc__table-row-text">6'6"</th>
+                        </tr>
+                        <tr class="hero-desc-content__table-row">
+                          <th class="hero-desc__table-row-name">Breed</th>
+                          <td class="th hero-desc__table-row-text">Asgardian</td>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">One more item:</th>
+                          <th class="hero-desc__table-row-text">Some text</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Aliases:</th>
+                          <th class="hero-desc__table-row-text">
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                          </th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="hero-description__additions">
+                      <h5 class="hero-description__additions-title">Watch movie</h5>
+                      <div class="hero-description__additions-list">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="swiper-slide scene-hero" data-background-color="rgb(89 119 145 / 100%)">
+                  
+                  <img class="scene-hero__image" src="./assets/images/captain-america.png" alt="Your browser does not support this image.">
+
+                  <div class="hero-description">
+                    <h4 class="hero-description__title">avengers</h4>
+                    <h1 class="hero-description__name">Thor Odison</h1>
+                    <div class="hero-description__content hero-desc">
+                      <h5 class="hero-desc__table-title">Description</h5>
+                      <table class="hero-desc__table">
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Name:</th>
+                          <th class="hero-desc__table-row-text">Thor Odison</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Growth:</th>
+                          <th class="hero-desc__table-row-text">6'6"</th>
+                        </tr>
+                        <tr class="hero-desc-content__table-row">
+                          <th class="hero-desc__table-row-name">Breed</th>
+                          <td class="th hero-desc__table-row-text">Asgardian</td>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">One more item:</th>
+                          <th class="hero-desc__table-row-text">Some text</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Aliases:</th>
+                          <th class="hero-desc__table-row-text">
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                          </th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="hero-description__additions">
+                      <h5 class="hero-description__additions-title">Watch movie</h5>
+                      <div class="hero-description__additions-list">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="swiper-slide scene-hero" data-background-color="rgb(89 119 145 / 100%)">
+                  
+                  <img class="scene-hero__image" src="./assets/images/ironman.png" alt="Your browser does not support this image.">
+
+                  <div class="hero-description">
+                    <h4 class="hero-description__title">avengers</h4>
+                    <h1 class="hero-description__name">Thor Odison</h1>
+                    <div class="hero-description__content hero-desc">
+                      <h5 class="hero-desc__table-title">Description</h5>
+                      <table class="hero-desc__table">
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Name:</th>
+                          <th class="hero-desc__table-row-text">Thor Odison</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Growth:</th>
+                          <th class="hero-desc__table-row-text">6'6"</th>
+                        </tr>
+                        <tr class="hero-desc-content__table-row">
+                          <th class="hero-desc__table-row-name">Breed</th>
+                          <td class="th hero-desc__table-row-text">Asgardian</td>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">One more item:</th>
+                          <th class="hero-desc__table-row-text">Some text</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Aliases:</th>
+                          <th class="hero-desc__table-row-text">
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                          </th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="hero-description__additions">
+                      <h5 class="hero-description__additions-title">Watch movie</h5>
+                      <div class="hero-description__additions-list">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="swiper-slide scene-hero" data-background-color="rgb(89 119 145 / 100%)">
+                  
+                  <img class="scene-hero__image" src="./assets/images/falcon.png" alt="Your browser does not support this image.">
+
+                  <div class="hero-description">
+                    <h4 class="hero-description__title">avengers</h4>
+                    <h1 class="hero-description__name">Thor Odison</h1>
+                    <div class="hero-description__content hero-desc">
+                      <h5 class="hero-desc__table-title">Description</h5>
+                      <table class="hero-desc__table">
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Name:</th>
+                          <th class="hero-desc__table-row-text">Thor Odison</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Growth:</th>
+                          <th class="hero-desc__table-row-text">6'6"</th>
+                        </tr>
+                        <tr class="hero-desc-content__table-row">
+                          <th class="hero-desc__table-row-name">Breed</th>
+                          <td class="hero-desc__table-row-text">Asgardian</td>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">One more item:</th>
+                          <th class="hero-desc__table-row-text">Some text</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Aliases:</th>
+                          <th class="hero-desc__table-row-text">
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                          </th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="hero-description__additions">
+                      <h5 class="hero-description__additions-title">Watch movie</h5>
+                      <div class="hero-description__additions-list">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="swiper-slide scene-hero" data-background-color="rgb(89 119 145 / 100%)">
+                  
+                  <img class="scene-hero__image" src="./assets/images/tor.png" alt="Your browser does not support this image.">
+
+                  <div class="hero-description">
+                    <h4 class="hero-description__title">avengers</h4>
+                    <h1 class="hero-description__name">Thor Odison</h1>
+                    <div class="hero-description__content hero-desc">
+                      <h5 class="hero-desc__table-title">Description</h5>
+                      <table class="hero-desc__table">
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Name:</th>
+                          <th class="hero-desc__table-row-text">Thor Odison</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Growth:</th>
+                          <th class="hero-desc__table-row-text">6'6"</th>
+                        </tr>
+                        <tr class="hero-desc-content__table-row">
+                          <th class="hero-desc__table-row-name">Breed</th>
+                          <td class="th hero-desc__table-row-text">Asgardian</td>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">One more item:</th>
+                          <th class="hero-desc__table-row-text">Some text</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Aliases:</th>
+                          <th class="hero-desc__table-row-text">
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                          </th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="hero-description__additions">
+                      <h5 class="hero-description__additions-title">Watch movie</h5>
+                      <div class="hero-description__additions-list">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="swiper-slide scene-hero" data-background-color="rgb(89 119 145 / 100%)">
+                  
+                  <img class="scene-hero__image" src="./assets/images/blackwidow.png" alt="Your browser does not support this image.">
+
+                  <div class="hero-description">
+                    <h4 class="hero-description__title">avengers</h4>
+                    <h1 class="hero-description__name">Thor Odison</h1>
+                    <div class="hero-description__content hero-desc">
+                      <h5 class="hero-desc__table-title">Description</h5>
+                      <table class="hero-desc__table">
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Name:</th>
+                          <th class="hero-desc__table-row-text">Thor Odison</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Growth:</th>
+                          <th class="hero-desc__table-row-text">6'6"</th>
+                        </tr>
+                        <tr class="hero-desc-content__table-row">
+                          <th class="hero-desc__table-row-name">Breed</th>
+                          <td class="th hero-desc__table-row-text">Asgardian</td>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">One more item:</th>
+                          <th class="hero-desc__table-row-text">Some text</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Aliases:</th>
+                          <th class="hero-desc__table-row-text">
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                          </th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="hero-description__additions">
+                      <h5 class="hero-description__additions-title">Watch movie</h5>
+                      <div class="hero-description__additions-list">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="swiper-slide scene-hero" data-background-color="rgb(89 119 145 / 100%)">
+                  
+                  <img class="scene-hero__image" src="./assets/images/captain-america.png" alt="Your browser does not support this image.">
+
+                  <div class="hero-description">
+                    <h4 class="hero-description__title">avengers</h4>
+                    <h1 class="hero-description__name">Thor Odison</h1>
+                    <div class="hero-description__content hero-desc">
+                      <h5 class="hero-desc__table-title">Description</h5>
+                      <table class="hero-desc__table">
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Name:</th>
+                          <th class="hero-desc__table-row-text">Thor Odison</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Growth:</th>
+                          <th class="hero-desc__table-row-text">6'6"</th>
+                        </tr>
+                        <tr class="hero-desc-content__table-row">
+                          <th class="hero-desc__table-row-name">Breed</th>
+                          <td class="th hero-desc__table-row-text">Asgardian</td>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">One more item:</th>
+                          <th class="hero-desc__table-row-text">Some text</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Aliases:</th>
+                          <th class="hero-desc__table-row-text">
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                          </th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="hero-description__additions">
+                      <h5 class="hero-description__additions-title">Watch movie</h5>
+                      <div class="hero-description__additions-list">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="swiper-slide scene-hero" data-background-color="rgb(89 119 145 / 100%)">
+                  
+                  <img class="scene-hero__image" src="./assets/images/ironman.png" alt="Your browser does not support this image.">
+
+                  <div class="hero-description">
+                    <h4 class="hero-description__title">avengers</h4>
+                    <h1 class="hero-description__name">Thor Odison</h1>
+                    <div class="hero-description__content hero-desc">
+                      <h5 class="hero-desc__table-title">Description</h5>
+                      <table class="hero-desc__table">
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Name:</th>
+                          <th class="hero-desc__table-row-text">Thor Odison</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Growth:</th>
+                          <th class="hero-desc__table-row-text">6'6"</th>
+                        </tr>
+                        <tr class="hero-desc-content__table-row">
+                          <th class="hero-desc__table-row-name">Breed</th>
+                          <td class="th hero-desc__table-row-text">Asgardian</td>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">One more item:</th>
+                          <th class="hero-desc__table-row-text">Some text</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Aliases:</th>
+                          <th class="hero-desc__table-row-text">
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                          </th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="hero-description__additions">
+                      <h5 class="hero-description__additions-title">Watch movie</h5>
+                      <div class="hero-description__additions-list">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="swiper-slide scene-hero" data-background-color="rgb(89 119 145 / 100%)">
+                  
+                  <img class="scene-hero__image" src="./assets/images/falcon.png" alt="Your browser does not support this image.">
+
+                  <div class="hero-description">
+                    <h4 class="hero-description__title">avengers</h4>
+                    <h1 class="hero-description__name">Thor Odison</h1>
+                    <div class="hero-description__content hero-desc">
+                      <h5 class="hero-desc__table-title">Description</h5>
+                      <table class="hero-desc__table">
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Name:</th>
+                          <th class="hero-desc__table-row-text">Thor Odison</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Growth:</th>
+                          <th class="hero-desc__table-row-text">6'6"</th>
+                        </tr>
+                        <tr class="hero-desc-content__table-row">
+                          <th class="hero-desc__table-row-name">Breed</th>
+                          <td class="hero-desc__table-row-text">Asgardian</td>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">One more item:</th>
+                          <th class="hero-desc__table-row-text">Some text</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Marriage status:</th>
+                          <th class="hero-desc__table-row-text">Married to Jane Foster</th>
+                        </tr>
+                        <tr class="hero-desc__table-row">
+                          <th class="hero-desc__table-row-name">Aliases:</th>
+                          <th class="hero-desc__table-row-text">
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                            Donald Blake Jake Olson Eric Masterson Sigmund Siegfried Odinson
+                          </th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="hero-description__additions">
+                      <h5 class="hero-description__additions-title">Watch movie</h5>
+                      <div class="hero-description__additions-list">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                        <img class="hero-description__additions-list-item" src="./assets/images/the_avengers_logo.jpeg" alt="">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                
+              </div> <!-- /.swiper-wrapper -->
+
+          </div> <!-- /.swiper.scene-carousel -->
+
+
+          <!-- Navigation menu -->
+            <div class="scene-nav"> 
+              <div class="scene-container">
+
+                <div class="scene-nav__wrapper">
+
+                  <!-- Button menu -->
+                  <div class="scene-nav__button-block">
+                    <div class="scene-nav__button-prev">
+                      <!-- Import SVG arrow icon -->
+                      <img class="scene-nav__button-icon" src="./assets/icons/arrow-icon.svg" alt="Your browser does not this image.">
+                    </div>
+                    <div class="scene-nav__button-next">
+                      <!-- Import SVG arrow icon -->
+                      <img class="scene-nav__button-icon" src="./assets/icons/arrow-icon.svg" alt="Your browser does not this image.">
+                    </div>
+                  </div> <!-- /.scene-nav__button-block -->
+                  <div class="scene-nav__description">
+                    <div class="scene-nav__description-title">avengers</div>
+                    <div class="scene-nav__description-text">
+                      Some text. Some more text. More text! 
+                      I need MORE text! Some text. Some more text. More text! 
+                      I need MORE text!
+                    </div>
+                  </div> <!-- /.scene-nav__description -->
+  
+                </div> <!-- /.scene-nav__wrapper -->
+
+              </div> <!-- /.scene-container -->
+            </div> <!-- /.nav -->
+    
+        </div> <!-- /.scene-wrapper -->
+      </main>
+
+    </div>  <!-- /.anim-carouse__content -->
+  </div> <!-- /.anim-carouse -->
+
+
+
+  <!-- Swiper script -->
+  <script src="./assets/libs/swiper/swiper-bundle.min.js"></script>
+
+  <!-- JS -->
+  <script src="./assets/js/main.js"></script>
+
+</body>
+</html>

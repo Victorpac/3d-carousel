@@ -268,7 +268,7 @@ body * {
 
 .anim-carousel._active .scene-hero {
   z-index: 0;
-  width: 0px !important;
+  /* width: 0px !important; */
   transform: translate3d(var(--slide-offset), 0px, 0px);
   /* transform: translate3d(var(--scene-invisible-slide-offset), 0px, 0px); */
   transition-property: transform, width;
@@ -305,7 +305,7 @@ body * {
   animation-duration: 2s;
   /* animation-timing-function: ease-in-out; */
   justify-content: space-between;
-  /* transform: translate3d(0px, 0px, 0px); */
+  transform: translate3d(0px, 0px, 0px);
   transition: all 3s;
 }
 

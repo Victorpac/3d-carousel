@@ -3,7 +3,7 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
   slidesPerView: 5,
   speed: 300,   // Animation speed
   // centeredSlides: true,
-  centeredSlidesBounds: true,
+  centeredSlides: true,
   slideToClickedSlide: true,
   mousewheel: {
     forceToAxis: true
@@ -12,7 +12,7 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
   navigation: {
     nextEl: '.scene-nav__button-next',
     prevEl: '.scene-nav__button-prev'
-  }
+  },
 
   on: {
     activeIndexChange: function () {
@@ -64,10 +64,11 @@ function activeSceneAnimation(el) {
   // });
 
 
+  let sumImagesWidth = 0;
+
   for (let i = 0; i < sceneCarousel.slides.length; i++) {
     const item = sceneCarousel.slides[i];
     const itemImagePos = item.querySelector('.scene-hero__image').getBoundingClientRect();
-
     
     if (item.classList.contains('swiper-slide-prev')) {
       item.style.setProperty('--slide-offset', `-${prevSlideImage?.offsetWidth}px`);
@@ -80,8 +81,17 @@ function activeSceneAnimation(el) {
       item.style.setProperty('--slide-offset', `-${itemImagePos.x+((itemImagePos.width*3.5))}px`);
     }else {
       // let imageCurrentWidth = entry[1][1].offsetWidth;
-      item.style.setProperty('--slide-offset', `-${Math.abs(itemImagePos.x)+(itemImagePos.width*3.5)}px`);
+      if (i > sceneCarousel.activeIndex) {
+        let itemOffset = (itemImagePos.x-sumImagesWidth)+(sumImagesWidth*3.5)+itemImagePos.width;
+        item.style.setProperty('--slide-offset', `-${itemOffset}px`);
+        // console.log(`${itemImagePos.x+(itemImagePos.width*3.5)}, ${itemImagePos.x}, ${itemImagePos.width*3.5}`);
+      }else {
+        let itemOffset = (Math.abs(itemImagePos.x)+(itemImagePos.width*3.5)); // Math.abs(itemImagePos.x)+(itemImagePos.width*3.5)
+        item.style.setProperty('--slide-offset', `-${itemOffset}px`);
+      }
+      sumImagesWidth += itemImagePos.width;
     }
+
   }
   
 

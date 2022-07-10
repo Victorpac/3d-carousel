@@ -1,3 +1,6 @@
+// User settings
+const activeSceneImageScale = 3.5;
+
 const scene             = document.querySelector('.anim-carousel');
 const sceneCarousel     = new Swiper('.scene-carousel', {
   slidesPerView: 5,
@@ -13,7 +16,6 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
     nextEl: '.scene-nav__button-next',
     prevEl: '.scene-nav__button-prev'
   },
-
   on: {
     activeIndexChange: function () {
       const actSlide = this.slides[this.activeIndex];
@@ -41,8 +43,10 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
         }
       }
     },
+
   }
 });
+
 
 
 function activeSceneAnimation(el) {
@@ -56,34 +60,50 @@ function activeSceneAnimation(el) {
   // Addin active status for the whole block (.anim-carousel)
   scene.classList.add('_active');  
   sceneWrapper.style.background = active_bg_color;
+  sceneCarousel.$el[0].style.setProperty('--image-scale', activeSceneImageScale);
 
+
+  let sumImagesWidth = 0;
   for (let i = 0; i < sceneCarousel.slides.length; i++) {
-    const item = sceneCarousel.slides[i];
-    const itemImagePos = item.querySelector('.scene-hero__image').getBoundingClientRect();
+    const item                  = sceneCarousel.slides[i];
+    const itemImagePos          = item.querySelector('.scene-hero__image').getBoundingClientRect();
+    const windowWidth           = document.documentElement.offsetWidth;
+    
+    let itemOffset              = 0;
+    let activeSlideImageWidth   = 0;
     
     if (item.classList.contains('swiper-slide-prev')) {
-      // item.style.setProperty('--slide-offset', `-${itemImagePos.width*0.5}px`);
+      itemOffset = itemImagePos.width;
 
     }else if (item.classList.contains('swiper-slide-active')) {
-      const windowWidth = document.documentElement.offsetWidth;
-      let itemOffset = itemImagePos.x-(windowWidth-el.offsetWidth)/2;
-      item.style.setProperty('--slide-offset', `${-itemOffset}px`);
+      itemOffset = itemImagePos.x-(windowWidth*0.1)/2;
+      activeSlideImageWidth = item.offsetWidth;
 
-    }else if (item.classList.contains('swiper-slide-next')) {      
-      // item.style.setProperty('--slide-offset', `-${itemImagePos.x+((itemImagePos.width*3.5)/4)}px`);
+    }else if (item.classList.contains('swiper-slide-next')) {
+      itemOffset = (itemImagePos.x + (sumImagesWidth * (activeSceneImageScale-1)) - (activeSlideImageWidth*activeSceneImageScale));
 
+    }else {
+      if (i > sceneCarousel.activeIndex) {
+        itemOffset = (itemImagePos.x-sumImagesWidth)+(sumImagesWidth*activeSceneImageScale)+(itemImagePos.width*activeSceneImageScale)+(windowWidth*0.1); 
+      }else {
+        itemOffset = (Math.abs(itemImagePos.x)+(itemImagePos.width*activeSceneImageScale)); // Math.abs(itemImagePos.x)+(itemImagePos.width*3.5)
+      }
     }
+
+    sumImagesWidth += itemImagePos.width;
+
+    console.log(sumImagesWidth, item);
+    item.style.setProperty('--slide-offset', `${-itemOffset}px`);
   }
 
-  // Stop slide offset updating (Event fires based on the first carousel slide)
-  el.querySelector('.scene-hero__image').addEventListener('transitionend', () => {
-    // clearInterval(slideOffsetUpdate);
-    activeSlideDescription.classList.add('_active');
-  });
-
-  exit.addEventListener('click', function () {
+  exit.addEventListener('click', () => {
     scene.classList.remove('_active');
     sceneWrapper.style.background = 'unset';
+  });
+
+  // Stop slide offset updating (Event fires based on the first carousel slide)
+  sceneCarousel.slides[0].querySelector('.scene-hero__image').addEventListener('transitionend', () => {
+    activeSlideDescription.classList.add('_active');
   });
 }
 

@@ -199,7 +199,7 @@ body * {
   position: absolute;
   right: 5vw;
   top: 50px;
-  z-index: 4;
+  z-index: 5;
   cursor: pointer;
   display: none;
 }
@@ -210,6 +210,7 @@ body * {
   width: 50%;
   position: absolute;
   bottom: 0;
+  z-index: 5;
 }
 
 .scene-nav__wrapper {
@@ -267,36 +268,27 @@ body * {
   animation-timing-function: ease;  
 }
 
-/* .anim-carousel._active .scene-carouse {
-  position: fixed;
-  top: 0;
-  left: 0;
-} */
-
 .anim-carousel._active .scene-carousel__wrapper {
   transform: translate3d(0px, 0px, 0px) !important;
   transition: transform 3s;
-  width: 100%;
 }
 
 .anim-carousel._active .scene-hero {
   z-index: 0;
- position: absolute;
- left: 0;
- transform: translate3d(-100%, 0px, 0px);
+  transform: translate3d(var(--slide-offset), 0px, 0px);
+  transition-property: transform;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
 }
 
 .anim-carousel._active .scene-hero .scene-hero__image {
   animation-duration: 5s;
-  transform: translate3d(0px, 35%, 0px) scale(3.5);
-  transition: transform 2s;
+  transform: translate3d(0px, 35%, 0px) scale(var(--image-scale));
+  transition: transform 3s;
 }
 
 .anim-carousel._active .swiper-slide-prev {
   z-index: 1;
-  display: flex;
-  /* transform: translate3d(-90%, 0px, 0px); */
-  transform: translate3d(-50%, 0px, 0px);
 }
 
 .anim-carousel._active .swiper-slide-prev .scene-hero__image {
@@ -305,23 +297,15 @@ body * {
 }
 
 .anim-carousel._active .swiper-slide-active {
-  display: flex;
-  /* left: 50%; */
-  /* transform: translate3d(var(--scene-active-slide-offset), 0px, 0px); */
   z-index: 2;
-  max-width: 70vw;
+  max-width: 90vw;
   width: 100% !important;
   margin: auto;
-  animation-name: activeHeroAnimation; 
+  animation-name: activeHeroAnimation;
   animation-duration: 2s;
-  animation-timing-function: cubic-bezier(0, 1, 0, 1);
   justify-content: space-between;
   transform: translate3d(var(--slide-offset), 0px, 0px);
-  transition: transform 3s cubic-bezier(1, 1, 0, 0);
-}
-
-.anim-carousel._active .scene-hero.swiper-slide-active .scene-hero__image {
-  transition: transform 2s;
+  transition: all 3s;
 }
 
 .anim-carousel._active .swiper-slide-active .hero-description._active {
@@ -332,10 +316,6 @@ body * {
 
 .anim-carousel._active .swiper-slide-next {
   z-index: 3;
-  display: flex;
-  /* transform: translate3d(-90%, 0px, 0px) scale(1.3); */
-  /* transform: translate3d(var(--slide-offset), 0px, 0px) scale(1.3); */
-  transform: translate3d(-20%, 0px, 0px);
 }
 
 .anim-carousel._active .swiper-slide-next .scene-hero__image {
@@ -353,7 +333,6 @@ body * {
 .anim-carousel._active .scene-exit {
   display: block;
 }
-
 
 
 /* ANIMATIONS */
@@ -398,16 +377,19 @@ body * {
 @keyframes activeHeroAnimation {
   0% {
     transform: translate3d(0px, 0px, 0px);
-    /* left: 50%; */
+    /* left: 0%; */
   }
 
-  100% {
+  20% {
+    /* transform: translate3d(25%, 0px, 0px); */
     transform: translate3d(100%, 0px, 0px);
+    /* left: 0%; */
   }
 
   100% {
-    left: 0;
-    transform: translate3d(var(--slide-offset), 0px, 0px);
+    /* transform: translate3d(var(--slide-offset), 0px, 0px); */
+    /* transform: translate3d(0%, 0px, 0px); */
+    /* left: -50%; */
   }
 }
 

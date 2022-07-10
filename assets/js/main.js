@@ -16,17 +16,31 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
 
   on: {
     activeIndexChange: function () {
+      const actSlide = this.slides[this.activeIndex];
+      const wrapper = this.$wrapperEl[0];
+
       if (scene.classList.contains('_active')) {
-        console.log('ok');
-        activeSceneAnimation(this.slides[this.activeIndex]);
+        wrapper.addEventListener('transitionend', activeAnim = () => {
+          activeSceneAnimation(actSlide);
+          wrapper.removeEventListener('transitionend', activeAnim);
+        });
       }
     },
-
     click: function () {
-      if (this.slides[this.activeIndex].classList.contains('swiper-slide-active')) {
-        activeSceneAnimation(this.slides[this.activeIndex]);
+      const actSlide = this.slides[this.activeIndex];
+      const wrapper = this.$wrapperEl[0];
+
+      if (actSlide.classList.contains('swiper-slide-active')) {
+        if (wrapper.style.transitionDuration !== '0ms') {
+          wrapper.addEventListener('transitionend', activeAnim = () => {
+            activeSceneAnimation(actSlide);
+            wrapper.removeEventListener('transitionend', activeAnim);
+          });
+        }else {
+          activeSceneAnimation(actSlide);
+        }
       }
-    }
+    },
   }
 });
 
@@ -34,6 +48,7 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
 function activeSceneAnimation(el) {
   const sceneWrapper            = document.querySelector('.anim-carousel__content');
   const activeSlideDescription  = el.querySelector('.hero-description');
+  const exit                    = document.querySelector('#sceneActiveSlideExit');
 
   let active_bg_color           = el.getAttribute('data-background-color');
 
@@ -64,6 +79,11 @@ function activeSceneAnimation(el) {
   el.querySelector('.scene-hero__image').addEventListener('transitionend', () => {
     // clearInterval(slideOffsetUpdate);
     activeSlideDescription.classList.add('_active');
+  });
+
+  exit.addEventListener('click', function () {
+    scene.classList.remove('_active');
+    sceneWrapper.style.background = 'unset';
   });
 }
 

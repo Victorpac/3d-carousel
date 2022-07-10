@@ -192,6 +192,18 @@ body * {
   border: none;
 }
 
+.scene-exit {
+  color: #fff;
+  font-size: 50px;
+  font-family: fantasy;
+  position: absolute;
+  right: 5vw;
+  top: 50px;
+  z-index: 4;
+  cursor: pointer;
+  display: none;
+}
+
 
 /* Navigation menu */
 .scene-nav {
@@ -255,11 +267,11 @@ body * {
   animation-timing-function: ease;  
 }
 
-.anim-carousel._active .scene-carouse {
+/* .anim-carousel._active .scene-carouse {
   position: fixed;
   top: 0;
   left: 0;
-}
+} */
 
 .anim-carousel._active .scene-carousel__wrapper {
   transform: translate3d(0px, 0px, 0px) !important;
@@ -294,6 +306,7 @@ body * {
 
 .anim-carousel._active .swiper-slide-active {
   display: flex;
+  /* left: 50%; */
   /* transform: translate3d(var(--scene-active-slide-offset), 0px, 0px); */
   z-index: 2;
   max-width: 70vw;
@@ -301,10 +314,10 @@ body * {
   margin: auto;
   animation-name: activeHeroAnimation; 
   animation-duration: 2s;
-  /* animation-timing-function: ease-in-out; */
+  animation-timing-function: cubic-bezier(0, 1, 0, 1);
   justify-content: space-between;
   transform: translate3d(var(--slide-offset), 0px, 0px);
-  transition: transform 3s;
+  transition: transform 3s cubic-bezier(1, 1, 0, 0);
 }
 
 .anim-carousel._active .scene-hero.swiper-slide-active .scene-hero__image {
@@ -336,6 +349,11 @@ body * {
   animation-timing-function: ease-in;
   opacity: 0;
 }
+
+.anim-carousel._active .scene-exit {
+  display: block;
+}
+
 
 
 /* ANIMATIONS */
@@ -380,19 +398,16 @@ body * {
 @keyframes activeHeroAnimation {
   0% {
     transform: translate3d(0px, 0px, 0px);
-    /* left: 0%; */
-  }
-
-  20% {
-    /* transform: translate3d(25%, 0px, 0px); */
-    transform: translate3d(100%, 0px, 0px);
-    /* left: 0%; */
+    /* left: 50%; */
   }
 
   100% {
-    /* transform: translate3d(var(--scene-active-slide-offset), 0px, 0px); */
+    transform: translate3d(100%, 0px, 0px);
+  }
+
+  100% {
+    left: 0;
     transform: translate3d(var(--slide-offset), 0px, 0px);
-    /* left: -50%; */
   }
 }
 

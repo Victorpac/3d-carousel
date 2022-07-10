@@ -47,15 +47,15 @@ function activeSceneAnimation(el) {
     const itemImagePos = item.querySelector('.scene-hero__image').getBoundingClientRect();
     
     if (item.classList.contains('swiper-slide-prev')) {
-      item.style.setProperty('--slide-offset', `-${itemImagePos.width*0.5}px`);
+      // item.style.setProperty('--slide-offset', `-${itemImagePos.width*0.5}px`);
 
     }else if (item.classList.contains('swiper-slide-active')) {
       const windowWidth = document.documentElement.offsetWidth;
-      let itemOffset = (windowWidth-el.offsetWidth)/2;
-      item.style.setProperty('--slide-offset', `-${itemImagePos.x}px`);
+      let itemOffset = itemImagePos.x-(windowWidth-el.offsetWidth)/2;
+      item.style.setProperty('--slide-offset', `${-itemOffset}px`);
 
     }else if (item.classList.contains('swiper-slide-next')) {      
-      item.style.setProperty('--slide-offset', `-${itemImagePos.x+((itemImagePos.width*3.5)/4)}px`);
+      // item.style.setProperty('--slide-offset', `-${itemImagePos.x+((itemImagePos.width*3.5)/4)}px`);
 
     }
   }

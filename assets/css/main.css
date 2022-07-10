@@ -269,26 +269,24 @@ body * {
 }
 
 .anim-carousel._active .scene-carousel__wrapper {
-  transform: translate3d(0px, 0px, 0px) !important;
   transition: transform 3s;
 }
 
 .anim-carousel._active .scene-hero {
+  animation-name: hideInvisibleSlides;
+  animation-duration: var(--slide-anim-duration);
   z-index: 0;
   transform: translate3d(var(--slide-offset), 0px, 0px);
-  transition-property: transform;
-  transition-duration: 1s;
-  transition-timing-function: ease-in-out;
 }
 
 .anim-carousel._active .scene-hero .scene-hero__image {
-  animation-duration: 5s;
+  animation-name: slideImageScale;
+  animation-duration: var(--slide-anim-duration);
   transform: translate3d(0px, 35%, 0px) scale(var(--image-scale));
-  transition: transform 3s;
 }
 
 .anim-carousel._active .swiper-slide-prev {
-  z-index: 1;
+  z-index: 3;
 }
 
 .anim-carousel._active .swiper-slide-prev .scene-hero__image {
@@ -298,14 +296,17 @@ body * {
 
 .anim-carousel._active .swiper-slide-active {
   z-index: 2;
+  /* animation-name: activeHeroAnimation; */
+  /* animation-duration: 2s; */
+  justify-content: space-between;
+  transform: translate3d(var(--slide-offset), 0px, 0px);
+  transition: transform 3s;
+}
+
+.anim-carousel._active .swiper-slide-active._step-2 {
   max-width: 90vw;
   width: 100% !important;
   margin: auto;
-  animation-name: activeHeroAnimation;
-  animation-duration: 2s;
-  justify-content: space-between;
-  transform: translate3d(var(--slide-offset), 0px, 0px);
-  transition: all 3s;
 }
 
 .anim-carousel._active .swiper-slide-active .hero-description._active {
@@ -315,7 +316,7 @@ body * {
 }
 
 .anim-carousel._active .swiper-slide-next {
-  z-index: 3;
+  z-index: 1;
 }
 
 .anim-carousel._active .swiper-slide-next .scene-hero__image {
@@ -361,6 +362,24 @@ body * {
   100% {
     opacity: 0;
     transform: translate(0%, 5%) scale(1.04);
+  }
+}
+
+@keyframes hideInvisibleSlides {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(var(--slide-offset), 0px, 0px);
+  }
+}
+
+@keyframes slideImageScale {
+  0% {
+    transform: translate3d(0px, 0px, 0px) scale(1);
+  }
+  100% {
+    transform: translate3d(0px, 35%, 0px) scale(var(--image-scale));
   }
 }
 

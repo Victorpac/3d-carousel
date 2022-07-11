@@ -151,18 +151,21 @@ function startScene (el, isActive=false) {
   }, {once:true});
 
   sceneCarousel.on('slideChange', function (swiper) {
-    el.classList.remove('_step-2');
-    activeSlideDescription.classList.remove('_active');
+    if (scene.classList.contains('_active')) {
+      el.classList.remove('_step-2');
+      activeSlideDescription.classList.remove('_active');
 
-    sceneCarousel.slides.forEach(item => {
-      item.style.removeProperty('--slide-offset-delay');
-    });
+      sceneCarousel.slides.forEach(item => {
+        item.style.removeProperty('--slide-offset-delay');
+      });
 
-    const activeSlide = swiper.slides[swiper.activeIndex];
-    swiper.updateSlidesClasses();
-    startScene(activeSlide);
+      const activeSlide = swiper.slides[swiper.activeIndex];
+      swiper.updateSlidesClasses();
+      startScene(activeSlide);
+    }
   });
 }
+
 
 
 function slideExit (el, s_width, s_transform) {

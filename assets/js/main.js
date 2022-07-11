@@ -8,7 +8,6 @@ const scene             = document.querySelector('.anim-carousel');
 const sceneCarousel     = new Swiper('.scene-carousel', {
   slidesPerView: 5,
   speed: 300,   // Animation speed
-  // centeredSlides: true,
   centeredSlides: true,
   slideToClickedSlide: true,
   mousewheel: {
@@ -26,24 +25,9 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
       if (actSlide.classList.contains('swiper-slide-active')) {
         if (!el.animating) {
           startScene(actSlide);
-          // this.animation = new sceneAnimation(actSlide);
         }
       }
     },
-    // activeIndexChange: function (swiper) {
-    //   const actSlide = swiper.slides[swiper.activeIndex];
-
-    //   if (scene.classList.contains('_active')) {
-    //       changeActiveSlide(actSlide);
-    //       // this.animation = new sceneAnimation(actSlide);
-        
-    //   }
-    // }
-    // sliderMove: function (el, event) {
-    //   const actSlide = el.slides[el.activeIndex];
-    //   this.updateSlidesClasses();
-    //   changeSlide(actSlide);
-    // }
   }
 });
 
@@ -145,7 +129,7 @@ function startScene (el, isActive=false) {
     }
     item.style.width = '0px';
     item.style.setProperty('--slide-offset-delay', `${itemTransitionDelay}ms`);
-    // itemImage.style.setProperty('--slide-image-trans-delay', `${imageTransitionDelay}ms`);
+    itemImage.style.setProperty('--slide-image-trans-delay', `${imageTransitionDelay}ms`);
     if (!isActive) itemImage.style.setProperty('--slide-image-transform', `translate3d(0px, 35%, 0px) scale(${activeSceneImageScale})`);
   }
 
@@ -163,28 +147,60 @@ function startScene (el, isActive=false) {
 
 
   exit.addEventListener('click', () => {
-    stopScene();
+    slideExit(el, saveSlideWidth, saveTransform);
   }, {once:true});
 
   sceneCarousel.on('slideChange', function (swiper) {
-      el.classList.remove('_step-2');
-      activeSlideDescription.classList.remove('_active');
+    el.classList.remove('_step-2');
+    activeSlideDescription.classList.remove('_active');
 
-      sceneCarousel.slides.forEach(item => {
-        item.style.removeProperty('--slide-offset-delay');
-      });
-
-      const activeSlide = swiper.slides[swiper.activeIndex];
-      swiper.updateSlidesClasses();
-      startScene(activeSlide);
+    sceneCarousel.slides.forEach(item => {
+      item.style.removeProperty('--slide-offset-delay');
     });
+
+    const activeSlide = swiper.slides[swiper.activeIndex];
+    swiper.updateSlidesClasses();
+    startScene(activeSlide);
+  });
 }
 
 
+function slideExit (el, s_width, s_transform) {
+  const activeSlideDescription  = el.querySelector('.hero-description');
+  const sceneWrapper            = document.querySelector('.anim-carousel__content');
+
+  // sceneCarousel.wrapperEl.style.transform = s_transform;
+  // el.classList.remove('_step-2');
+  // activeSlideDescription.classList.remove('_active');
+  // sceneCarousel.slides.forEach(item => {
+  //   item.style.removeProperty('position');
+    // item.style.width = s_width;
+  // });
 
 
+  scene.classList.remove('_active');
+  sceneWrapper.style.background = 'unset';
+  activeSlideDescription.classList.remove('_active');
+  el.classList.remove('_step-2');
+  sceneCarousel.slides.forEach(item => {
+    item.style.removeProperty('position');
+    item.style.removeProperty('z-index');
+    item.style.removeProperty('--slide-offset');
+    item.style.removeProperty('--scene-active-slide-width');
+    item.style.width = s_width;
+    item.style.left = 0;
 
-// setTimeout(() => , 100);
+    item.querySelector('.scene-hero__image').style.removeProperty('--slide-image-trans-delay');
+    item.querySelector('.scene-hero__image').style.removeProperty('--slide-image-transform');    
+  });
+
+  sceneCarousel.el.style.removeProperty('--image-scale');
+  sceneCarousel.wrapperEl.style.transitionDuration = '0ms';
+  sceneCarousel.wrapperEl.style.transform = s_transform;
+  
+}
+
+
 
 class sceneAnimations {
   constructor (el) {

@@ -40,7 +40,6 @@
   }
   .scene-hero .scene-hero__image {
     height: 200px;
-    user-select: none;
   }
   .hero-description__title {
 

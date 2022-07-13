@@ -20,105 +20,69 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
   },
   on: {
     click: function (el) {
-      const actSlide = el.slides[el.activeIndex];
+      const actSlide = el.clickedSlide;
+
+      let 
+        scene_is_active     = scene.classList.contains('_active'),
+        swiper_is_anim      = el.animating,
+        slide_is_active     = actSlide.classList.contains('swiper-slide-active');
       
-      if (actSlide.classList.contains('swiper-slide-active')) {
-        if (!el.animating) {
-          startScene(actSlide);
-        }
+      if ((!scene_is_active) &&  (!swiper_is_anim) && (slide_is_active)) {
+        startScene(actSlide);
       }
     },
   }
 });
 
 
-scene.style.setProperty('--slide-offset-duration', `${sceneSlideOffsetDuration}ms`)
+scene.style.setProperty('--slide-offset-duration', `${sceneSlideOffsetDuration}ms`);
 
 
-function changeActiveSlide (el) {
-  const sceneWrapper            = document.querySelector('.anim-carousel__content');
-  const active_bg_color         = el.getAttribute('data-background-color');
-  const activeSlideDescription  = el.querySelector('.hero-description');
-
-
-  sceneWrapper.style.background = active_bg_color;
-  sceneCarousel.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
-
-  for (let i = 0; i < sceneCarousel.slides.length; i++) {
-    const item = sceneCarousel.slides[i];
-    const itemImage = item.querySelector('.scene-hero__image');
-    const itemImagePos = itemImage.getBoundingClientRect();
-    const windowWidth = document.documentElement.offsetWidth;
-
-
-    if (item.classList.contains('swiper-slide-prev')) {
-      item.style.left = `0px`;
-    }else if (item.classList.contains('swiper-slide-active')) {
-      console.log(item, sceneCarousel.activeIndex);
-      let itemOffset = (windowWidth*0.3) / 2;
-      item.style.left = `${-itemOffset}px`;
-
-    }else if (item.classList.contains('swiper-slide-next')) {
-      item.style.left = `0px`;
-    }else {
-      item.style.left = `${-itemImagePos.width}px`;
-    }
-    item.style.position = 'absolute';
-  }
-
-  el.classList.add('_step-2');
-  activeSlideDescription.classList.add('_active');
-}
-
-
-function startScene (el, isActive=false) {
+function startScene (active_el, isActive=false) {
   const sceneWrapper            = document.querySelector('.anim-carousel__content');
   const exit                    = document.querySelector('#sceneActiveSlideExit');
-  const activeSlideDescription  = el.querySelector('.hero-description');
-  const activeSlideImage        = el.querySelector('.scene-hero__image');
-  const active_bg_color         = el.getAttribute('data-background-color');
-  const saveSlideWidth          = el.style.width;
+  const activeSlideDescription  = active_el.querySelector('.hero-description');
+  const active_bg_color         = active_el.getAttribute('data-background-color');
+  const saveSlideWidth          = active_el.style.width;
   const saveTransform           = sceneCarousel.wrapperEl.style.transform;
   const slidesCount             = sceneCarousel.slides.length;
 
-
-  if (!isActive) scene.classList.add('_active');
-
-  sceneWrapper.style.background = active_bg_color;
-  sceneCarousel.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
+  
   if (!isActive) {
-    sceneCarousel.wrapperEl.style.transitionDuration = '3000ms';
+    scene.classList.add('_active');
+    sceneCarousel.wrapperEl.style.transitionDuration = '2000ms';
     scene.style.setProperty('--scene-active-slide-width', `${sceneActiveSlideWidth}vw`);
     sceneCarousel.el.style.setProperty('--image-scale', activeSceneImageScale);
   } 
+  sceneWrapper.style.background = active_bg_color;
+  sceneCarousel.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
+
 
   let imageTransitionDelay = 0;
-  let itemTransitionDelay = 0;
-  let delayIndex = 150;
+  let delayIndex = 200;
   for (let i = 0; i < slidesCount; i++) {
-    const item = sceneCarousel.slides[i];
-    const itemImage = item.querySelector('.scene-hero__image');
-    const itemImagePos = itemImage.getBoundingClientRect();
-    const windowWidth = document.documentElement.offsetWidth;
+    const item            = sceneCarousel.slides[i];
+    const itemImage       = item.querySelector('.scene-hero__image');
+    const itemImagePos    = itemImage.getBoundingClientRect();
+    const windowWidth     = document.documentElement.offsetWidth;
 
     if (item.classList.contains('swiper-slide-prev')) {
       imageTransitionDelay = 0;
-      if (!isActive) itemTransitionDelay = (slidesCount)*delayIndex;
       item.style.left = `0px`;
+      itemImage.classList.add('_active');
     }else if (item.classList.contains('swiper-slide-active')) {
       imageTransitionDelay = 0;
-      if (!isActive) itemTransitionDelay = (slidesCount)*delayIndex;
-      let itemOffset = (windowWidth*0.3) / 2;
-      item.style.left = `${itemOffset}px`;
+      item.style.left = `${(windowWidth*0.3) / 2}px`;
 
     }else if (item.classList.contains('swiper-slide-next')) {
       imageTransitionDelay = 0;
-      if (!isActive) itemTransitionDelay = (slidesCount)*delayIndex;
       item.style.left = `0px`;
+      itemImage.classList.add('_active');
     }else {
+      if (i > sceneCarousel.activeIndex) {
+        imageTransitionDelay += delayIndex;
+      }
       if (!isActive) {
-        itemTransitionDelay = (slidesCount-i)*delayIndex;
-        imageTransitionDelay += 100;
         item.style.left = `${-itemImagePos.width*3.5}px`;
         if (i > sceneCarousel.activeIndex) {
           item.style.zIndex = -i;
@@ -128,15 +92,13 @@ function startScene (el, isActive=false) {
       }
     }
     item.style.width = '0px';
-    item.style.setProperty('--slide-offset-delay', `${itemTransitionDelay}ms`);
     itemImage.style.setProperty('--slide-image-trans-delay', `${imageTransitionDelay}ms`);
     if (!isActive) itemImage.style.setProperty('--slide-image-transform', `translate3d(0px, 35%, 0px) scale(${activeSceneImageScale})`);
   }
 
-  el.addEventListener('transitionend', this.secondAnimationStep = () => {
-    el.classList.add('_step-2');
+  active_el.addEventListener('transitionend', secondAnimationStep = () => {
+    active_el.classList.add('_step-2');
     activeSlideDescription.classList.add('_active');
-    sceneCarousel.wrapperEl.style.transitionDuration = '0ms';
 
     if (!isActive) {
       sceneCarousel.slides.forEach(item => {
@@ -145,218 +107,90 @@ function startScene (el, isActive=false) {
     }
   }, {once:true});
 
-
   exit.addEventListener('click', () => {
-    slideExit(el, saveSlideWidth, saveTransform);
+    slideExit(active_el, saveSlideWidth, saveTransform, delayIndex);
   }, {once:true});
 
-  sceneCarousel.on('slideChange', function (swiper) {
-    if (scene.classList.contains('_active')) {
-      el.classList.remove('_step-2');
-      activeSlideDescription.classList.remove('_active');
 
-      sceneCarousel.slides.forEach(item => {
-        item.style.removeProperty('--slide-offset-delay');
+  sceneCarousel.once('touchStart', actveSceneTouchStart = (swiper, event) => {
+    if (scene.classList.contains('_active')) {
+      let startPoint = event.x;
+      
+      swiper.allowTouchMove = false;
+
+      sceneCarousel.el.addEventListener('pointermove', actveSceneMove = event => {
+        if (Math.abs(startPoint-event.x) > parseInt(saveSlideWidth)) {
+          if (startPoint-event.x > 0) {
+            swiper.slideNext(0);
+          }else {
+            swiper.slidePrev(0);
+          }
+          scene.style.setProperty('--slide-offset-duration', `200ms`);
+          startPoint = event.x;
+          swiper.setTranslate(0);
+          startScene(swiper.slides[swiper.activeIndex], true);
+        }
       });
 
-      const activeSlide = swiper.slides[swiper.activeIndex];
-      swiper.updateSlidesClasses();
-      startScene(activeSlide);
+      sceneCarousel.el.addEventListener('pointerup', event => {
+        console.log('success!');
+        sceneCarousel.el.removeEventListener('pointermove', actveSceneMove);
+      });
+
     }
   });
 }
 
+      // active_el.classList.remove('_step-2');
+      // activeSlideDescription.classList.remove('_active');
+
+      // const activeSlide = swiper.slides[swiper.activeIndex];
+      // startScene(activeSlide);
 
 
-function slideExit (el, s_width, s_transform) {
-  const activeSlideDescription  = el.querySelector('.hero-description');
+function slideExit (active_el, s_width, s_transform, delayIndex) {
+  const activeSlideDescription  = active_el.querySelector('.hero-description');
   const sceneWrapper            = document.querySelector('.anim-carousel__content');
+  const d_Index                 = delayIndex/10;
+  const slidesCount             = sceneCarousel.slides.length;
+  
+  let imageTransitionDelay = slidesCount * d_Index;
 
-  // sceneCarousel.wrapperEl.style.transform = s_transform;
-  // el.classList.remove('_step-2');
-  // activeSlideDescription.classList.remove('_active');
-  // sceneCarousel.slides.forEach(item => {
-  //   item.style.removeProperty('position');
-    // item.style.width = s_width;
-  // });
-
+  active_el.removeEventListener('transitionend', secondAnimationStep);
+  active_el.classList.remove('_step-2');
+  activeSlideDescription.classList.remove('_active');
 
   scene.classList.remove('_active');
   sceneWrapper.style.background = 'unset';
-  activeSlideDescription.classList.remove('_active');
-  el.classList.remove('_step-2');
-  sceneCarousel.slides.forEach(item => {
-    item.style.removeProperty('position');
-    item.style.removeProperty('z-index');
-    item.style.removeProperty('--slide-offset');
-    item.style.removeProperty('--scene-active-slide-width');
-    item.style.width = s_width;
-    item.style.left = 0;
 
-    item.querySelector('.scene-hero__image').style.removeProperty('--slide-image-trans-delay');
-    item.querySelector('.scene-hero__image').style.removeProperty('--slide-image-transform');    
-  });
+  for (let i = 0; i < slidesCount; i++) {
+    const item          = sceneCarousel.slides[i];
+    const itemImage     = item.querySelector('.scene-hero__image'); 
 
-  sceneCarousel.el.style.removeProperty('--image-scale');
-  sceneCarousel.wrapperEl.style.transitionDuration = '0ms';
-  sceneCarousel.wrapperEl.style.transform = s_transform;
-  
-}
-
-
-
-class sceneAnimations {
-  constructor (el) {
-    this.sceneWrapper            = document.querySelector('.anim-carousel__content');
-    this.exit                    = document.querySelector('#sceneActiveSlideExit');
-    this.activeSlide             = el;
-    this.activeSlideDescription  = el.querySelector('.hero-description');
-    this.activeSlideImage        = el.querySelector('.scene-hero__image');
-    this.active_bg_color         = el.getAttribute('data-background-color');
-    this.saveSlideWidth          = el.style.width;
-    this.saveTransform           = sceneCarousel.wrapperEl.style.transform;
-
-    this.start();
-  }
-
-  start () {
-    this.addProperties();
-    this.addEvents();
-  }
-
-  addProperties () {
-    scene.classList.add('_active');
-    this.sceneWrapper.style.background = this.active_bg_color;
-    this.activeSlide.style.setProperty('--scene-active-slide-width', `${sceneActiveSlideWidth}vw`);
-    sceneCarousel.el.style.setProperty('--image-scale', activeSceneImageScale);
-    sceneCarousel.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
-    sceneCarousel.wrapperEl.style.transitionDuration = '3000ms';
-
-    this.showSlide();
-  }
-
-  showSlide (isActive=false) {
-    for (let i = 0; i < sceneCarousel.slides.length; i++) {
-      const item                  = sceneCarousel.slides[i];
-      const itemImage             = item.querySelector('.scene-hero__image');
-      const itemImagePos          = item.querySelector('.scene-hero__image').getBoundingClientRect();
-      const windowWidth           = document.documentElement.offsetWidth;
-      const itemCount             = sceneCarousel.slides.length;
-
-      if (isActive) {
-        activeSceneImageScale = 1;
-        this.addEvents();
-      }
-  
-      let itemOffset = 0;
-      let slideTransitionDelay = 0;
-      let imageTransitionDelay = 0;
-      if (item.classList.contains('swiper-slide-prev')) {
-        itemOffset = itemImagePos.width / 2;
-        imageTransitionDelay = 0;
-        slideTransitionDelay = 0;
-  
-      }else if (item.classList.contains('swiper-slide-active')) {
-        itemOffset = -(windowWidth*0.3) / 2;
-        imageTransitionDelay = 0;
-        slideTransitionDelay = 0;
-  
-      }else if (item.classList.contains('swiper-slide-next')) {
-        imageTransitionDelay = 0;
-        slideTransitionDelay = 0;
-        this.activeSlideImage.addEventListener('transitionend', this.addPosition = () => {
-          item.style.position = 'absolute';
-        }, {once:true});
-      }else {
-        imageTransitionDelay = i * 100;
-        slideTransitionDelay = (itemCount - i) * 100;
-        if (i > sceneCarousel.activeIndex) {
-          this.activeSlideImage.addEventListener('transitionend', this.addPosition = () => {
-            item.style.position = 'absolute';
-          }, {once:true});
-          itemOffset = itemImagePos.width*activeSceneImageScale;
-          item.style.zIndex = -i;
-        }else {
-          itemOffset = itemImagePos.width*activeSceneImageScale;
-        }
-      }
-  
-      item.style.width = '0px';
-      itemImage.style.setProperty('--slide-image-trans-delay', `${imageTransitionDelay}ms`);
-      if (!isActive) {
-        itemImage.style.setProperty('--slide-image-transform', `translate3d(0px, 35%, 0px) scale(${activeSceneImageScale})`);
-      }
-      // item.style.setProperty('--slide-offset-delay', `${slideTransitionDelay}ms`);
-      // item.style.setProperty('--slide-offset-duration', `${2}s`);
-      item.style.setProperty('--slide-offset', `${-itemOffset}px`);
+    if (item.classList.contains('swiper-slide-active')) {  
+      item.style.transitionProperty = 'transform, left';
+    }else if ( (!item.classList.contains('swiper-slide-prev')) && (!item.classList.contains('swiper-slide-next')) ){
+      imageTransitionDelay -= delayIndex;
     }
+    item.style.removeProperty('position');
+    item.style.left = 0;
+    item.style.width = s_width;
+
+    itemImage.style.setProperty('--slide-image-trans-delay', `${imageTransitionDelay}ms`);
   }
 
-  addEvents () {
-    this.activeSlideImage.addEventListener('transitionend', this.secondAnimationStep = () => {
-      this.activeSlide.classList.add('_step-2');
-      this.activeSlideDescription.classList.add('_active');
-      sceneCarousel.wrapperEl.style.transitionDuration = '0ms';
-    }, {once:true});
+  active_el.addEventListener('transitionend', () => {
+    sceneCarousel.wrapperEl.style.transform = s_transform;
+    sceneCarousel.slides.forEach(item => {
+      item.style.removeProperty('z-index');
+      item.style.removeProperty('--slide-offset');
+      item.style.removeProperty('--scene-active-slide-width');
 
-    this.exit.addEventListener('click', () => {
-      this.removeActiveScene(this.activeSlide); 
-    }, {once:true});
-  }
+      item.querySelector('.scene-hero__image').style.removeProperty('--slide-image-trans-delay');
+      item.querySelector('.scene-hero__image').style.removeProperty('--slide-image-transform'); 
+    });
 
-  removeActiveScene () {
-    // let slideTransitionDelay = 0;
-    // sceneCarousel.slides.forEach(item => {
-    //   item.classList.remove('_step-2');
-    //   this.activeSlideDescription.classList.add('_active');
-    //   sceneCarousel.wrapperEl.style.transitionDuration = '3000ms';
-    //   item.style.removeProperty('position');
-    //   item.style.width = this.saveSlideWidth;
-    //   item.firstElementChild.style.setProperty('--slide-image-transform', `translate3d(0px, 35%, 0px) scale(1)`);
-    //   item.style.setProperty('--slide-offset', `0px`);
-    //   item.style.setProperty('--slide-offset-delay', `${slideTransitionDelay+=100}ms`);
-
-    //   this.sceneWrapper.style.background = 'unset';
-    // });
-
-    scene.classList.remove('_active');
-      this.sceneWrapper.style.background = 'unset';
-      this.activeSlideDescription.classList.remove('_active');
-      this.activeSlide.classList.remove('_step-2');
-      sceneCarousel.slides.forEach(item => {
-        item.style.width = this.saveSlideWidth;
-        item.style.removeProperty('position');
-        item.style.removeProperty('z-index');
-        item.style.removeProperty('--slide-offset');
-        item.style.removeProperty('--scene-active-slide-width');
-
-        item.querySelector('.scene-hero__image').style.removeProperty('--slide-image-trans-delay');
-        item.querySelector('.scene-hero__image').style.removeProperty('--slide-image-transform');
-      });
-
-      sceneCarousel.el.style.removeProperty('--image-scale');
-      sceneCarousel.wrapperEl.style.transitionDuration = '0ms';
-      sceneCarousel.wrapperEl.style.transform = this.saveTransform;
-
-    // setTimeout(() => {
-    //   scene.classList.remove('_active');
-    //   this.sceneWrapper.style.background = 'unset';
-    //   this.activeSlideDescription.classList.remove('_active');
-    //   this.activeSlide.classList.remove('_step-2');
-    //   sceneCarousel.slides.forEach(item => {
-    //     item.style.removeProperty('position');
-    //     item.style.removeProperty('z-index');
-    //     item.style.removeProperty('--slide-offset');
-    //     item.style.removeProperty('--scene-active-slide-width');
-
-    //     item.querySelector('.scene-hero__image').style.removeProperty('--slide-image-trans-delay');
-    //     item.querySelector('.scene-hero__image').style.removeProperty('--slide-image-transform');
-    //     sceneCarousel.el.style.removeProperty('--image-scale');
-    //     sceneCarousel.wrapperEl.style.transitionDuration = '0ms';
-    //     sceneCarousel.wrapperEl.style.transform = saveTransform;
-    //   });
-    // }, 3000);
-  }
+    document.querySelector('.swiper-slide-prev .scene-hero__image').classList.remove('_active');
+    document.querySelector('.swiper-slide-next .scene-hero__image').classList.remove('_active');
+  }, {once: true});
 }
-
-

@@ -1,18 +1,11 @@
 @media (max-width: 1441px) {
-  :root {
-    --sceneSlideImageHeight: 200px;
-  }
-
-
   /* HEADER */
   .header__inner {
     padding: 15px 20px;
   }
-
   .header__logo {
     font-size: 30px;
   }
-
   .user-profile__icon {
     width: 25px;
     height: 25px;
@@ -24,7 +17,6 @@
     font-size: 52px;
     margin-top: 100px;
   }
-
   .scene__title::after {
     margin-top: 15px;
   }
@@ -34,31 +26,23 @@
     padding: 0px 0px;
   }
   .scene-hero {
-    --scene-slide-image-height: 200px;
-    /* --hero-description-width: 40vw; */
-    --active-scene-slide-image-height: 800px;
+    --scene-slide-image-height: 200px;  
   }
   .scene-hero .scene-hero__image {
     height: 200px;
-  }
-  .hero-description__title {
-
   }
   .hero-description__name {
     font-size: 52px;
     margin-top: 20px;
   }
-
   .hero-description__content {
     margin: 15px 0px;
     padding: 10px 0px;
   }
-  
   .hero-desc__table-title {
     margin-bottom: 10px;
     margin-top: 0px;
   }
-  
   .hero-desc__table {
     width: 40vw;
     font-size: medium;
@@ -67,9 +51,6 @@
     width: 40%;
     padding: 5px 0px;
   }  
-  .hero-desc__table-row-text {
-
-  }
   .hero-description__additions-title {
     margin: 20px 0px;
   }
@@ -81,11 +62,9 @@
   .scene-nav__wrapper {
     padding: 20px 40px;
   }
-  
   .scene-nav__button-prev, .scene-nav__button-next {
     padding: 10px;
   }
-
   .scene-nav__button-icon {
     transform: scale(1.2);
   }

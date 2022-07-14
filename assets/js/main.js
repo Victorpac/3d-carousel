@@ -2,6 +2,7 @@
 const activeSceneImageScale = 3.5; // CSS property transform: scale()
 const sceneActiveSlideWidth = 70; // vw (vw = % of screen width)
 const sceneSlideOffsetDuration = 1500; // ms
+const slideSwipeSensibility = 1;
 
 
 const scene             = document.querySelector('.anim-carousel');
@@ -117,14 +118,13 @@ function startScene (swiper, isActive=false) {
       const active_el = s.slides[saveIndex];
       
       let startPoint = event.x;
-      // console.log(active_el);
       active_el.classList.remove('_step-2');
       activeSlideDescription.classList.remove('_active');
       
       s.allowTouchMove = false;
 
       s.el.addEventListener('pointermove', actveSceneMove = event => {
-        if (Math.abs(startPoint-event.x) > saveSceneSlideWidth) {
+        if (Math.abs(startPoint-event.x) > saveSceneSlideWidth*slideSwipeSensibility) {
           if (startPoint-event.x > 0) {
             if (s.activeIndex < s.slides.length-1) {
               startPoint = event.x;
@@ -149,14 +149,10 @@ function startScene (swiper, isActive=false) {
 
       s.el.addEventListener('pointerup', event => {
         if (s.activeIndex === saveIndex) {
-          // console.log(swiper.activeIndex, saveIndex);
           active_el.classList.add('_step-2');
           activeSlideDescription.classList.add('_active');
-          
-          // startPoint = undefined;
         }else {
           swiper.off('touchStart', actveSceneTouchStart);
-          // console.log('Event removed!');
         }
         swiper.el.removeEventListener('pointermove', actveSceneMove);
       }, {once: true});

@@ -56,9 +56,10 @@ function startScene (swiper, isActive=false) {
   if (!isActive) {
     saveSceneTransform = swiper.wrapperEl.style.transform;
     scene.classList.add('_active');
-    swiper.wrapperEl.style.transitionDuration = '1000ms';
     scene.style.setProperty('--scene-active-slide-width', `${sceneActiveSlideWidth}vw`);
+    swiper.wrapperEl.style.transitionDuration = '1000ms';
     swiper.el.style.setProperty('--image-scale', activeSceneImageScale);
+    swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
   } 
   sceneWrapper.style.background = active_bg_color;
   swiper.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
@@ -108,54 +109,47 @@ function startScene (swiper, isActive=false) {
   }, {once: true});
 
 
-  swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
-
   function actveSceneTouchStart (event) {
     console.log('active');
     if (scene.classList.contains('_active')) {
-      const s = swiper;   // Must be removed Must be removed Must be removed Must be removed Must be removed 
-      const saveIndex = s.activeIndex;
-      const active_el = s.slides[saveIndex];
+      const saveIndex = swiper.activeIndex;
+      const active_el = swiper.slides[saveIndex];
       
       let startPoint = event.x;
       active_el.classList.remove('_step-2');
       activeSlideDescription.classList.remove('_active');
       
-      s.allowTouchMove = false;
+      swiper.allowTouchMove = false;
 
-      s.el.addEventListener('pointermove', actveSceneTouchMove = event => {
+      swiper.el.addEventListener('pointermove', actveSceneTouchMove = event => {
         if (Math.abs(startPoint-event.x) > saveSceneSlideWidth*slideSwipeSensibility) {
           if (startPoint-event.x > 0) {
-            if (s.activeIndex < s.slides.length-1) {
+            if (swiper.activeIndex < swiper.slides.length-1) {
               startPoint = event.x;
-              s.slideNext(0);
-              startScene(s, true);           
               scene.style.setProperty('--slide-offset-duration', `500ms`);
-              s.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
-              swiper.el.removeEventListener('pointerdown', actveSceneTouchStart);
+              swiper.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)'; 
+              swiper.slideNext(0);
+              startScene(swiper, true);
             }
           }else {
-            if (s.activeIndex > 0) {
+            if (swiper.activeIndex > 0) {
               startPoint = event.x;
-              s.slidePrev(0);
-              startScene(s, true);           
               scene.style.setProperty('--slide-offset-duration', `500ms`);
-              s.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
-              swiper.el.removeEventListener('pointerdown', actveSceneTouchStart);
+              swiper.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
+              swiper.slidePrev(0);
+              startScene(swiper, true);
             }
           }
         }
       });
 
-      s.el.addEventListener('pointerup', actveSceneTouchEnd = event => {
-        if (s.activeIndex === saveIndex) {
+      swiper.el.addEventListener('pointerup', actveSceneTouchEnd = event => {
+        if (swiper.activeIndex === saveIndex) {
           active_el.classList.add('_step-2');
           activeSlideDescription.classList.add('_active');
         }else {
-          // console.log('ok');
-          swiper.el.removeEventListener('pointerdown', actveSceneTouchStart);
+          swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
         }
-        // console.log('removed');
         swiper.el.removeEventListener('pointermove', actveSceneTouchMove);
       }, {once: true});
     }

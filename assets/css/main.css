@@ -137,7 +137,6 @@ body * {
   opacity: 0;
   width: var(--hero-description-width);
   color: #fff;
-  
 }
 .hero-description__title {
   text-transform: uppercase;
@@ -282,7 +281,7 @@ body * {
 .anim-carousel._active .swiper-slide-active._step-2 .hero-description._active {
   opacity: 1;
   display: block;
-  animation: slideDescriptionAnimation 1s ease;
+  animation: slideDescriptionAnimation 700ms ease;
 }
 .anim-carousel._active .swiper-slide-prev .scene-hero__image,
 .anim-carousel._active .swiper-slide-next .scene-hero__image {

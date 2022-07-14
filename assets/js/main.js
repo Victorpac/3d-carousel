@@ -18,6 +18,7 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
     nextEl: '.scene-nav__button-next',
     prevEl: '.scene-nav__button-prev'
   },
+  // Swiper events
   on: {
     click: function (el) {
       const actSlide = el.clickedSlide;

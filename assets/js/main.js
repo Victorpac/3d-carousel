@@ -62,6 +62,7 @@ function startScene (swiper, isActive=false) {
     if (windowWidth > 520) {
       swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
     }else {
+      swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
       activeSlideDescription.addEventListener('pointerdown', heroDescriptionSwipe);
     }
   } 
@@ -158,10 +159,32 @@ function startScene (swiper, isActive=false) {
 
 
   function heroDescriptionSwipe (event) {
+    const startPoint = event.x;
+    const el_leftOffset = activeSlideDescription.getBoundingClientRect().x;
+
+    let endPoint = 0;
+
     swiper.allowTouchMove = false;
-    console.log(event.x);
+    activeSlideDescription.style.transitionDuration = '0ms';
+    activeSlideDescription.addEventListener('pointermove', heroDescriptionMove = event => {
+      activeSlideDescription.style.left = `${((el_leftOffset-(startPoint-event.x))/windowWidth)*100}%`;
+      endPoint = event.x;
+    });
+
+    document.addEventListener('pointerup', event => {
+      activeSlideDescription.style.transitionDuration = '700ms';
+      activeSlideDescription.removeEventListener('pointermove', heroDescriptionMove);
+      activeSlideDescription.style.removeProperty('left');
+      if (startPoint > endPoint) {
+        if (startPoint/endPoint > 0.33) {
+          activeSlideDescription.style.left = '0px';
+        }
+      }
+    }, {once:true});
   }
 
+
+  
   exit.addEventListener('click', () => {
     swiper.el.removeEventListener('pointerdown', actveSceneTouchStart);
     swiper.el.removeEventListener('pointermove', actveSceneTouchMove);

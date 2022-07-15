@@ -1,9 +1,11 @@
 // User settings
 const windowWidth               = document.documentElement.offsetWidth;
+const mobileModActiveWidth      = 520;
+const mobile_mod                = windowWidth < mobileModActiveWidth;
 const activeSceneImageScale     = 3.5; // CSS property transform: scale()
-const sceneActiveSlideWidth     = (windowWidth > 520) ? 70 : 90; // vw (vw = % of screen width)
 const sceneSlideOffsetDuration  = 1500; // ms
 const slideSwipeSensibility     = 1;
+const sceneActiveSlideWidth     = (mobile_mod) ? 90 : 70; // vw (vw = % of screen width)
 
 
 const scene             = document.querySelector('.anim-carousel');
@@ -38,10 +40,12 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
 });
 
 
+let description_is_act;
 let saveSceneSlideWidth  = sceneCarousel.slides[0].offsetWidth;
 let saveSceneTransform   = sceneCarousel.wrapperEl.style.transform;
 
 scene.style.setProperty('--slide-offset-duration', `${sceneSlideOffsetDuration}ms`);
+
 
 
 function startScene (swiper, isActive=false) {
@@ -53,24 +57,25 @@ function startScene (swiper, isActive=false) {
   const slidesCount             = swiper.slides.length; 
   const delayIndex              = 200;
 
+  let imageTransitionDelay  = 0;
+
   
   if (!isActive) {
     saveSceneTransform = swiper.wrapperEl.style.transform;
     scene.classList.add('_active');
     scene.style.setProperty('--scene-active-slide-width', `${sceneActiveSlideWidth}vw`);
     swiper.wrapperEl.style.transitionDuration = '1000ms';
-    if (windowWidth > 520) {
-      swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
+    if (mobile_mod) {
+      description_is_act = false;
+      swiper.el.addEventListener('pointerdown', actveSceneTouchStart_m);
     }else {
       swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
-      activeSlideDescription.addEventListener('pointerdown', heroDescriptionSwipe);
     }
-  } 
+  }
   sceneWrapper.style.background = active_bg_color;
   swiper.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
 
 
-  let imageTransitionDelay = 0;
   for (let i = 0; i < slidesCount; i++) {
     const item            = swiper.slides[i];
     const itemImage       = item.querySelector('.scene-hero__image');
@@ -101,15 +106,27 @@ function startScene (swiper, isActive=false) {
     if (!isActive) itemImage.style.setProperty('--slide-image-transform', `translate3d(0px, 35%, 0px) scale(${activeSceneImageScale})`);
   }
 
+
   active_el.addEventListener('transitionend', secondAnimationStep = () => {
     active_el.classList.add('_step-2');
     activeSlideDescription.classList.add('_active');
-
     if (!isActive) {
       swiper.slides.forEach(item => {
         item.style.position = 'absolute';
       });
     }
+  }, {once: true});
+
+  exit.addEventListener('click', () => {
+    if (mobile_mod) {
+      swiper.el.removeEventListener('pointerdown', actveSceneTouchStart_m);
+    }else {
+      swiper.el.removeEventListener('pointerdown', actveSceneTouchStart);
+    }
+    swiper.el.removeEventListener('pointermove', actveSceneTouchMove);
+    swiper.el.removeEventListener('pointerup', actveSceneTouchEnd);
+    swiper.allowTouchMove = true;
+    slideExit(swiper, active_el, delayIndex);
   }, {once: true});
 
 
@@ -150,13 +167,39 @@ function startScene (swiper, isActive=false) {
           active_el.classList.add('_step-2');
           activeSlideDescription.classList.add('_active');
         }else {
-          swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
+          if (mobile_mod) {
+            description_is_act = false;
+            swiper.el.addEventListener('pointerdown', actveSceneTouchStart_m);
+          }else {
+            swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
+          }
         }
         swiper.el.removeEventListener('pointermove', actveSceneTouchMove);
       }, {once: true});
     }
   }
 
+
+  function actveSceneTouchStart_m (event) {
+    console.log(description_is_act);
+    if (scene.classList.contains('_active')) {
+      if (event.x > windowWidth / 2) {
+        if (!description_is_act) {
+          console.log('no active');
+          heroDescriptionSwipe(event);
+        }else {
+          console.log('is active');
+          actveSceneTouchStart(event);
+        }
+      }else {
+        if (description_is_act) {
+          heroDescriptionSwipe(event);
+        }else {
+          actveSceneTouchStart(event);
+        }
+      }
+    }
+  }
 
   function heroDescriptionSwipe (event) {
     const startPoint = event.x;
@@ -174,24 +217,17 @@ function startScene (swiper, isActive=false) {
     document.addEventListener('pointerup', event => {
       activeSlideDescription.style.transitionDuration = '700ms';
       activeSlideDescription.removeEventListener('pointermove', heroDescriptionMove);
-      activeSlideDescription.style.removeProperty('left');
+      activeSlideDescription.style.left = 'unset';
+      description_is_act = false;
       if (startPoint > endPoint) {
         if (startPoint/endPoint > 0.33) {
+          console.log('left 0');
           activeSlideDescription.style.left = '0px';
+          description_is_act = true;
         }
       }
     }, {once:true});
   }
-
-
-  
-  exit.addEventListener('click', () => {
-    swiper.el.removeEventListener('pointerdown', actveSceneTouchStart);
-    swiper.el.removeEventListener('pointermove', actveSceneTouchMove);
-    swiper.el.removeEventListener('pointerup', actveSceneTouchEnd);
-    swiper.allowTouchMove = true;
-    slideExit(swiper, active_el, delayIndex);
-  }, {once: true});
 }
 
 

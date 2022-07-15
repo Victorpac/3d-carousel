@@ -59,8 +59,11 @@ function startScene (swiper, isActive=false) {
     scene.classList.add('_active');
     scene.style.setProperty('--scene-active-slide-width', `${sceneActiveSlideWidth}vw`);
     swiper.wrapperEl.style.transitionDuration = '1000ms';
-    swiper.el.style.setProperty('--image-scale', activeSceneImageScale);
-    swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
+    if (windowWidth > 520) {
+      swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
+    }else {
+      activeSlideDescription.addEventListener('pointerdown', heroDescriptionSwipe);
+    }
   } 
   sceneWrapper.style.background = active_bg_color;
   swiper.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
@@ -110,7 +113,6 @@ function startScene (swiper, isActive=false) {
 
 
   function actveSceneTouchStart (event) {
-    console.log('active');
     if (scene.classList.contains('_active')) {
       const saveIndex = swiper.activeIndex;
       const active_el = swiper.slides[saveIndex];
@@ -142,7 +144,6 @@ function startScene (swiper, isActive=false) {
           }
         }
       });
-
       swiper.el.addEventListener('pointerup', actveSceneTouchEnd = event => {
         if (swiper.activeIndex === saveIndex) {
           active_el.classList.add('_step-2');
@@ -153,6 +154,12 @@ function startScene (swiper, isActive=false) {
         swiper.el.removeEventListener('pointermove', actveSceneTouchMove);
       }, {once: true});
     }
+  }
+
+
+  function heroDescriptionSwipe (event) {
+    swiper.allowTouchMove = false;
+    console.log(event.x);
   }
 
   exit.addEventListener('click', () => {

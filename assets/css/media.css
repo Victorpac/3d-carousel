@@ -105,8 +105,13 @@
     margin-top: 15px;
   }
   .scene-hero {
-    --scene-slide-image-height: 150px;
+    --scene-slide-image-height: 200px;
     --hero-description-width: 90vw;  
+  }
+  .anim-carousel._active .swiper-slide-prev .scene-hero__image,
+  .anim-carousel._active .swiper-slide-next .scene-hero__image {
+    left: -90px;
+    position: relative;
   }
   .hero-description {
     position: absolute;

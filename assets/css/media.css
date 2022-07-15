@@ -1,4 +1,4 @@
-@media (max-width: 1441px) {
+@media (max-width: 1440px) {
   /* HEADER */
   .header__inner {
     padding: 15px 20px;
@@ -28,9 +28,6 @@
   .scene-hero {
     --scene-slide-image-height: 200px;  
   }
-  .scene-hero .scene-hero__image {
-    height: 200px;
-  }
   .hero-description__name {
     font-size: 52px;
     margin-top: 20px;
@@ -45,7 +42,7 @@
   }
   .hero-desc__table {
     width: 40vw;
-    font-size: medium;
+    font-size: 16px;
   }
   .hero-desc__table-row-name {
     width: 40%;
@@ -66,7 +63,127 @@
     padding: 10px;
   }
   .scene-nav__button-icon {
-    transform: scale(1.2);
+    width: 50px;
+    height: 50px;
   }
 
+}
+
+
+@media (max-width: 420px) {
+  .header__inner {
+    padding: 10px 20px;
+  }
+  .header-menu__icon-item {
+    width: 20px;
+    height: 3px;
+  }
+  .header__logo {
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 20px;
+    letter-spacing: -3px;
+  }
+  .user-profile__icon {
+    width: 15px;
+    height: 15px;
+  }
+
+
+  /* SCENE */
+  .scene__title {
+    font-size: 24px;
+    margin-top: 50px;
+    padding: 0px 15px;
+  }
+  .scene__title::after {
+    height: 2px;
+  }
+
+  /* carousel */
+  .scene-carousel__wrapper {
+    margin-top: 15px;
+  }
+  .scene-hero {
+    --scene-slide-image-height: 150px;
+    --hero-description-width: 90vw;  
+  }
+  .hero-description {
+    position: absolute;
+    left: 50%;
+  }
+  .hero-description__title {
+    font-size: 14px;
+  }
+  .hero-description__title::before { 
+    height: 2px;
+    border-radius: 2px;
+    margin-bottom: 5px;
+  }
+  .hero-description__name { 
+    font-size: 22px;
+    margin-top: 15px;
+  }
+  .hero-description__content {
+    margin: 10px 0px;
+    padding: 5px 0px;
+  }
+  .hero-desc__table-title {
+    letter-spacing: 2px;
+    margin-top: 4px;
+  }
+  .hero-desc__table {
+    width: 90vw;
+    font-size: small;
+  }
+  .hero-desc__table-row-name {
+    width: 30%;
+    padding: 5px 0px;
+  }
+  .hero-description__additions-title {
+    margin: 10px 0px;
+  }
+  .hero-description__additions-list-item {
+    margin-right: 5px;
+    height: 50px;
+    border-radius: 10px;
+  }
+
+  .scene-exit {
+    font-size: 30px; 
+    right: 15vw;
+    top: 30px;
+  }
+
+
+  /* NAVIGATION MENU */
+  .scene-nav {
+    width: 100%;
+  }
+  .scene-nav__wrapper {
+    padding: 5px 20px;
+  }
+  .scene-nav__button-prev, .scene-nav__button-next {
+    border: 3px #fff solid;
+    padding: 7px;
+    margin: 0px 5px;
+  }
+  .scene-nav__button-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .scene-nav__description {
+    width: 55%;
+    margin-left: 10px;
+    color: #fff;
+    padding: 5px 0px;
+  }
+  .scene-nav__description-title {
+    font-weight: bold;
+    font-size: medium;
+    margin-bottom: 5px;
+  }
+  .scene-nav__description-text {
+    font-size: 12px;
+  }
 }

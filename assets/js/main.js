@@ -1,13 +1,14 @@
 // User settings
-const activeSceneImageScale = 3.5; // CSS property transform: scale()
-const sceneActiveSlideWidth = 70; // vw (vw = % of screen width)
-const sceneSlideOffsetDuration = 1500; // ms
-const slideSwipeSensibility = 1;
+const windowWidth               = document.documentElement.offsetWidth;
+const activeSceneImageScale     = 3.5; // CSS property transform: scale()
+const sceneActiveSlideWidth     = (windowWidth > 520) ? 70 : 90; // vw (vw = % of screen width)
+const sceneSlideOffsetDuration  = 1500; // ms
+const slideSwipeSensibility     = 1;
 
 
 const scene             = document.querySelector('.anim-carousel');
 const sceneCarousel     = new Swiper('.scene-carousel', {
-  slidesPerView: 5,
+  slidesPerView: (windowWidth > 520) ? 5 : 3,
   speed: 300,   // Animation speed
   centeredSlides: true,
   slideToClickedSlide: true,
@@ -70,7 +71,6 @@ function startScene (swiper, isActive=false) {
     const item            = swiper.slides[i];
     const itemImage       = item.querySelector('.scene-hero__image');
     const itemImagePos    = itemImage.getBoundingClientRect();
-    const windowWidth     = document.documentElement.offsetWidth;
     
 
     if (item.classList.contains('swiper-slide-prev')) {
@@ -79,7 +79,7 @@ function startScene (swiper, isActive=false) {
 
     }else if (item.classList.contains('swiper-slide-active')) {
       imageTransitionDelay = 0;
-      item.style.left = `${(windowWidth*0.3) / 2}px`;
+      item.style.left = `${(windowWidth*((100-sceneActiveSlideWidth)/100)) / 2}px`;
 
     }else if (item.classList.contains('swiper-slide-next')) {
       imageTransitionDelay = 0;

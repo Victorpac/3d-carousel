@@ -144,7 +144,6 @@ body * {
 }
 .hero-description__title {
   text-transform: uppercase;
-  width: var(--hero-description-width);
 }
 .hero-description__title::before {
   content: '';

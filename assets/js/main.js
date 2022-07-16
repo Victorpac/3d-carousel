@@ -5,7 +5,7 @@ const mobile_mod                = windowWidth < mobileModActiveWidth;
 const activeSceneImageScale     = 3.5; // CSS property transform: scale()
 const sceneSlideOffsetDuration  = 1500; // ms
 const slideSwipeSensibility     = 1;
-const sceneActiveSlideWidth     = (mobile_mod) ? 90 : 70; // vw (vw = % of screen width)
+const sceneActiveSlideWidth     = (mobile_mod) ? 95 : 70; // vw (vw = % of screen width)
 
 
 const scene             = document.querySelector('.anim-carousel');
@@ -169,6 +169,7 @@ function startScene (swiper, isActive=false) {
         }else {
           if (mobile_mod) {
             description_is_act = false;
+            activeSlideDescription.style.removeProperty('left');
             swiper.el.addEventListener('pointerdown', actveSceneTouchStart_m);
           }else {
             swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
@@ -181,7 +182,6 @@ function startScene (swiper, isActive=false) {
 
 
   function actveSceneTouchStart_m (event) {
-    console.log(description_is_act);
     if (scene.classList.contains('_active')) {
       if (event.x > windowWidth / 2) {
         if (!description_is_act) {
@@ -193,8 +193,10 @@ function startScene (swiper, isActive=false) {
         }
       }else {
         if (description_is_act) {
+          console.log('is active');
           heroDescriptionSwipe(event);
         }else {
+          console.log('no active');          
           actveSceneTouchStart(event);
         }
       }
@@ -203,6 +205,8 @@ function startScene (swiper, isActive=false) {
 
   function heroDescriptionSwipe (event) {
     const startPoint = event.x;
+    const active_el = swiper.slides[swiper.activeIndex];
+    const activeSlideDescription = active_el.querySelector('.hero-description');
     const el_leftOffset = activeSlideDescription.getBoundingClientRect().x;
 
     let endPoint = 0;
@@ -210,6 +214,7 @@ function startScene (swiper, isActive=false) {
     swiper.allowTouchMove = false;
     activeSlideDescription.style.transitionDuration = '0ms';
     activeSlideDescription.addEventListener('pointermove', heroDescriptionMove = event => {
+      console.log(event.x);
       activeSlideDescription.style.left = `${((el_leftOffset-(startPoint-event.x))/windowWidth)*100}%`;
       endPoint = event.x;
     });
@@ -217,11 +222,11 @@ function startScene (swiper, isActive=false) {
     document.addEventListener('pointerup', event => {
       activeSlideDescription.style.transitionDuration = '700ms';
       activeSlideDescription.removeEventListener('pointermove', heroDescriptionMove);
-      activeSlideDescription.style.left = 'unset';
+      activeSlideDescription.style.removeProperty('left');
       description_is_act = false;
+      console.log('ok');
       if (startPoint > endPoint) {
         if (startPoint/endPoint > 0.33) {
-          console.log('left 0');
           activeSlideDescription.style.left = '0px';
           description_is_act = true;
         }

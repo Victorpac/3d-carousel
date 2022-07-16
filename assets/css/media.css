@@ -106,16 +106,13 @@
   }
   .scene-hero {
     --scene-slide-image-height: 200px;
-    --hero-description-width: 90vw;  
-  }
-  .anim-carousel._active .swiper-slide-prev .scene-hero__image,
-  .anim-carousel._active .swiper-slide-next .scene-hero__image {
-    left: -90px;
-    position: relative;
+    --hero-description-width: 95vw;  
   }
   .hero-description {
     position: absolute;
     left: 50%;
+    background-color: #000000a6;
+    padding: 20px;
   }
   .hero-description__title {
     font-size: 14px;
@@ -144,6 +141,7 @@
   .hero-desc__table-row-name {
     width: 30%;
     padding: 5px 0px;
+    opacity: 1;
   }
   .hero-description__additions-title {
     margin: 10px 0px;
@@ -190,5 +188,16 @@
   }
   .scene-nav__description-text {
     font-size: 12px;
+  }
+
+
+  /* ANIMATIONS */
+  .anim-carousel._active .scene-hero._step-2 {
+    z-index: 5;
+  }
+  .anim-carousel._active .swiper-slide-prev .scene-hero__image,
+  .anim-carousel._active .swiper-slide-next .scene-hero__image {
+    left: -90px;
+    position: relative;
   }
 }

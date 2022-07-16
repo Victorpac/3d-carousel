@@ -10,7 +10,7 @@ const sceneActiveSlideWidth     = (mobile_mod) ? 95 : 70; // vw (vw = % of scree
 
 const scene             = document.querySelector('.anim-carousel');
 const sceneCarousel     = new Swiper('.scene-carousel', {
-  slidesPerView: (windowWidth > 520) ? 5 : 3,
+  slidesPerView: (windowWidth > 520) ? 5 : 2.5,
   speed: 300,   // Animation speed
   centeredSlides: true,
   slideToClickedSlide: true,
@@ -39,11 +39,6 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
   }
 });
 
-interact('.scene-carousel').gesturable({
-  onmove: function (event) {
-    console.log(event);
-  },
-})
 
 let description_is_act;
 let saveSceneSlideWidth  = sceneCarousel.slides[0].offsetWidth;
@@ -128,8 +123,6 @@ function startScene (swiper, isActive=false) {
     }else {
       swiper.el.removeEventListener('pointerdown', actveSceneTouchStart);
     }
-    swiper.el.removeEventListener('pointermove', actveSceneTouchMove);
-    swiper.el.removeEventListener('pointerup', actveSceneTouchEnd);
     swiper.allowTouchMove = true;
     slideExit(swiper, active_el, delayIndex);
   }, {once: true});
@@ -193,7 +186,6 @@ function startScene (swiper, isActive=false) {
         if (!description_is_act) { 
           heroDescriptionSwipe(event);
         }else {
-          console.log('is active');
           actveSceneTouchStart(event);
         }
       }else {
@@ -248,6 +240,7 @@ function slideExit (swiper, active_el, delayIndex) {
   active_el.removeEventListener('transitionend', secondAnimationStep);
   active_el.classList.remove('_step-2');
   activeSlideDescription.classList.remove('_active');
+  activeSlideDescription.style.removeProperty('left');
 
   scene.classList.remove('_active');
   scene.style.setProperty('--slide-offset-duration', `${sceneSlideOffsetDuration}ms`);

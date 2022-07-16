@@ -73,6 +73,8 @@
 @media (max-width: 420px) {
   .header__inner {
     padding: 10px 20px;
+    top: 0;
+    transition: top .7s;
   }
   .header-menu__icon-item {
     width: 20px;
@@ -112,6 +114,7 @@
     position: absolute;
     background-color: #000000a6;
     padding: 20px;
+    border-radius: 20px;
     left: 0;
   }
   .hero-description__title {
@@ -154,8 +157,8 @@
 
   .scene-exit {
     font-size: 30px; 
-    right: 15vw;
-    top: 30px;
+    right: 20px;
+    top: 10px;
   }
 
 
@@ -192,6 +195,10 @@
 
 
   /* ANIMATIONS */
+  .anim-carousel._active .header__inner {
+    top: -100%;
+  }
+
   .anim-carousel._active .scene-hero._step-2 {
     z-index: 5;
   }

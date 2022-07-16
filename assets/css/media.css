@@ -109,6 +109,8 @@
   .scene-hero {
     --scene-slide-image-height: 200px;
     --hero-description-width: 95vw;  
+    
+    justify-content: center;
   }
   .hero-description {
     position: absolute;

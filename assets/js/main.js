@@ -39,6 +39,11 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
   }
 });
 
+interact('.scene-carousel').gesturable({
+  onmove: function (event) {
+    console.log(event);
+  },
+})
 
 let description_is_act;
 let saveSceneSlideWidth  = sceneCarousel.slides[0].offsetWidth;
@@ -134,10 +139,12 @@ function startScene (swiper, isActive=false) {
     if (scene.classList.contains('_active')) {
       const saveIndex = swiper.activeIndex;
       const active_el = swiper.slides[saveIndex];
+      const activeSlideDescription = active_el.querySelector('.hero-description');
       
       let startPoint = event.x;
       active_el.classList.remove('_step-2');
       activeSlideDescription.classList.remove('_active');
+      activeSlideDescription.style.removeProperty('left');
       
       swiper.allowTouchMove = false;
 
@@ -169,7 +176,6 @@ function startScene (swiper, isActive=false) {
         }else {
           if (mobile_mod) {
             description_is_act = false;
-            activeSlideDescription.style.removeProperty('left');
             swiper.el.addEventListener('pointerdown', actveSceneTouchStart_m);
           }else {
             swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
@@ -184,8 +190,7 @@ function startScene (swiper, isActive=false) {
   function actveSceneTouchStart_m (event) {
     if (scene.classList.contains('_active')) {
       if (event.x > windowWidth / 2) {
-        if (!description_is_act) {
-          console.log('no active');
+        if (!description_is_act) { 
           heroDescriptionSwipe(event);
         }else {
           console.log('is active');
@@ -193,10 +198,8 @@ function startScene (swiper, isActive=false) {
         }
       }else {
         if (description_is_act) {
-          console.log('is active');
           heroDescriptionSwipe(event);
-        }else {
-          console.log('no active');          
+        }else {   
           actveSceneTouchStart(event);
         }
       }
@@ -213,18 +216,16 @@ function startScene (swiper, isActive=false) {
 
     swiper.allowTouchMove = false;
     activeSlideDescription.style.transitionDuration = '0ms';
-    activeSlideDescription.addEventListener('pointermove', heroDescriptionMove = event => {
-      console.log(event.x);
+    active_el.addEventListener('pointermove', heroDescriptionMove = event => {
       activeSlideDescription.style.left = `${((el_leftOffset-(startPoint-event.x))/windowWidth)*100}%`;
       endPoint = event.x;
     });
 
-    document.addEventListener('pointerup', event => {
+    active_el.addEventListener('pointerup', event => {
       activeSlideDescription.style.transitionDuration = '700ms';
-      activeSlideDescription.removeEventListener('pointermove', heroDescriptionMove);
+      active_el.removeEventListener('pointermove', heroDescriptionMove);
       activeSlideDescription.style.removeProperty('left');
-      description_is_act = false;
-      console.log('ok');
+      description_is_act = false; 
       if (startPoint > endPoint) {
         if (startPoint/endPoint > 0.33) {
           activeSlideDescription.style.left = '0px';

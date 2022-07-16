@@ -110,9 +110,9 @@
   }
   .hero-description {
     position: absolute;
-    left: 50%;
     background-color: #000000a6;
     padding: 20px;
+    left: 0;
   }
   .hero-description__title {
     font-size: 14px;
@@ -199,5 +199,9 @@
   .anim-carousel._active .swiper-slide-next .scene-hero__image {
     left: -90px;
     position: relative;
+  }
+
+  .anim-carousel._active .scene-hero .hero-description._active {
+    left: 50%;
   }
 }

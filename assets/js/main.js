@@ -20,7 +20,7 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
     },
   },
   mousewheel: {
-    forceToAxis: true,
+    forceToAxis: false,
     releaseOnEdges: true,
   },
   // Navigation arrows

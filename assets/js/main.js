@@ -4,18 +4,24 @@ const mobileModActiveWidth      = 520;
 const mobile_mod                = windowWidth < mobileModActiveWidth;
 const activeSceneImageScale     = 3.5; // CSS property transform: scale()
 const sceneSlideOffsetDuration  = 1500; // ms
-const slideSwipeSensibility     = 1;
+const slideSwipeSensibility     = 0.33;
 const sceneActiveSlideWidth     = (mobile_mod) ? 95 : 70; // vw (vw = % of screen width)
 
 
 const scene             = document.querySelector('.anim-carousel');
 const sceneCarousel     = new Swiper('.scene-carousel', {
-  slidesPerView: (windowWidth > 520) ? 5 : 2.5,
   speed: 300,   // Animation speed
   centeredSlides: true,
   slideToClickedSlide: true,
+  slidesPerView: 2.5,
+  breakpoints: {
+    520: {
+      slidesPerView:5,
+    },
+  },
   mousewheel: {
-    forceToAxis: true
+    forceToAxis: true,
+    releaseOnEdges: true,
   },
   // Navigation arrows
   navigation: {
@@ -214,12 +220,13 @@ function startScene (swiper, isActive=false) {
     });
 
     active_el.addEventListener('pointerup', event => {
+      console.log(startPoint, endPoint);
       activeSlideDescription.style.transitionDuration = '700ms';
       active_el.removeEventListener('pointermove', heroDescriptionMove);
       activeSlideDescription.style.removeProperty('left');
       description_is_act = false; 
-      if (startPoint > endPoint) {
-        if (startPoint/endPoint > 0.33) {
+      if ((startPoint > endPoint) && (endPoint !== 0)) {
+        if ((startPoint-endPoint)/windowWidth > 0.2) {
           activeSlideDescription.style.left = '0px';
           description_is_act = true;
         }

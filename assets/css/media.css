@@ -71,6 +71,13 @@
 
 
 @media (max-width: 420px) {
+  .anim-carousel__content {
+    height: 90vh;
+    transition: background 1s;
+    position: relative;
+  }
+
+
   .header__inner {
     padding: 10px 20px;
     top: 0;

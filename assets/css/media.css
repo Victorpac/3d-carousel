@@ -217,7 +217,7 @@
     position: relative;
   }
 
-  .anim-carousel._active .scene-hero .hero-description._active {
+  /* .anim-carousel._active .scene-hero .hero-description._active {
     left: 50%;
-  }
+  } */
 }

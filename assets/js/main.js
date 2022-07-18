@@ -4,7 +4,7 @@ const mobileModActiveWidth      = 520;
 const mobile_mod                = windowWidth < mobileModActiveWidth;
 const activeSceneImageScale     = 3.5; // CSS property transform: scale()
 const sceneSlideOffsetDuration  = 1500; // ms
-const slideSwipeSensibility     = 0.33;
+const slideSwipeSensibility     = (mobile_mod) ? 0.67 : 0.33;
 const sceneActiveSlideWidth     = (mobile_mod) ? 95 : 70; // vw (vw = % of screen width)
 
 
@@ -121,6 +121,9 @@ function startScene (swiper, isActive=false) {
         item.style.position = 'absolute';
       });
     }
+    active_el.addEventListener('transitionend', () => {
+      exit.style.display = 'block';
+    }, {once: true});
   }, {once: true});
 
   exit.addEventListener('click', () => {
@@ -188,19 +191,20 @@ function startScene (swiper, isActive=false) {
 
   function actveSceneTouchStart_m (event) {
     if (scene.classList.contains('_active')) {
-      if (event.x > windowWidth / 2) {
-        if (!description_is_act) { 
-          heroDescriptionSwipe(event);
-        }else {
-          actveSceneTouchStart(event);
-        }
-      }else {
-        if (description_is_act) {
-          heroDescriptionSwipe(event);
-        }else {   
-          actveSceneTouchStart(event);
-        }
-      }
+      // if (event.x > windowWidth / 2) {
+      //   if (!description_is_act) { 
+      //     heroDescriptionSwipe(event);
+      //   }else {
+      //     actveSceneTouchStart(event);
+      //   }
+      // }else {
+      //   if (description_is_act) {
+      //     heroDescriptionSwipe(event);
+      //   }else {   
+      //     actveSceneTouchStart(event);
+      //   }
+      // }
+      actveSceneTouchStart(event);
     }
   }
 
@@ -239,6 +243,7 @@ function startScene (swiper, isActive=false) {
 function slideExit (swiper, active_el, delayIndex) {
   const activeSlideDescription  = active_el.querySelector('.hero-description');
   const sceneWrapper            = document.querySelector('.anim-carousel__content');
+  const exit                    = document.querySelector('#sceneActiveSlideExit');
   const d_Index                 = delayIndex/10;
   const slidesCount             = swiper.slides.length;
   
@@ -253,6 +258,7 @@ function slideExit (swiper, active_el, delayIndex) {
   scene.style.setProperty('--slide-offset-duration', `${sceneSlideOffsetDuration}ms`);
   sceneWrapper.style.background = 'unset';
   swiper.wrapperEl.style.transitionDuration = '1000ms';
+  exit.style.removeProperty('display');
 
   for (let i = 0; i < slidesCount; i++) {
     const item          = swiper.slides[i];
@@ -264,7 +270,7 @@ function slideExit (swiper, active_el, delayIndex) {
       imageTransitionDelay -= delayIndex;
     }
     item.style.removeProperty('position');
-    item.style.left = 0;
+    item.style.removeProperty('left');
     item.style.width = `${saveSceneSlideWidth}px`;
 
     itemImage.style.setProperty('--slide-image-trans-delay', `${imageTransitionDelay}ms`);

@@ -32,7 +32,7 @@ body * {
   justify-content: space-between;
   position: absolute;
   width: 100%;
-  z-index: 5;
+  z-index: 4;
 }
 .header-menu__icon-item {
   background-color: #fff;
@@ -56,6 +56,13 @@ body * {
 
 
 /* SCENE */
+.scene * {
+  user-select: none; }
+.scene {
+  height: 100%; }
+.scene-wrapper {
+  height: 100%; }
+
 .scene__title {
   color: #fff;
   text-transform: uppercase;
@@ -64,7 +71,7 @@ body * {
   word-spacing: 99999px;
 
   position: absolute;
-  z-index: 5;
+  z-index: 4;
   display: block;
   margin-top: 150px;
   padding: 0px 30px;
@@ -87,13 +94,8 @@ body * {
 }
 
 /* carousel */
-.scene * {
-  user-select: none; }
-.scene {
-  height: 100%; }
-.scene-wrapper {
-  height: 100%; }
 .scene-carousel {
+  z-index: 5;
   height: 100%; }
 .scene-carousel__wrapper {
   margin-top: 30px;
@@ -301,10 +303,6 @@ body * {
   transform: translate3d(0px, 15%, 0px) scale(1.1);
   opacity: 0;
   transition-delay: 0s;
-}
-
-.anim-carousel._active .scene-exit {
-  display: block;
 }
 
 

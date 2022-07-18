@@ -153,11 +153,13 @@ function startScene (swiper, isActive=false) {
       swiper.allowSlideNext = true;
       swiper.allowSlidePrev = true;
 
-      swiper.el.addEventListener('pointermove', actveSceneTouchMove = event => {
-        if (Math.abs(startPoint-event.x)/windowWidth > slideSwipeSensibility) {
-          if (startPoint-event.x > 0) {
+      let eventName_move = (mobile_mod) ? 'touchmove' : 'pointermove';
+      swiper.el.addEventListener(eventName_move, actveSceneTouchMove = event => {
+        let current_x = event.x ?? event.changedTouches[0].clientX;
+        if (Math.abs(startPoint-current_x)/windowWidth > slideSwipeSensibility) {
+          if (startPoint-current_x > 0) {
             if (swiper.activeIndex < swiper.slides.length-1) {
-              startPoint = event.x;
+              startPoint = current_x;
               scene.style.setProperty('--slide-offset-duration', `500ms`);
               swiper.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)'; 
               swiper.slideNext(0);
@@ -165,7 +167,7 @@ function startScene (swiper, isActive=false) {
             }
           }else {
             if (swiper.activeIndex > 0) {
-              startPoint = event.x;
+              startPoint = current_x;
               scene.style.setProperty('--slide-offset-duration', `500ms`);
               swiper.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
               swiper.slidePrev(0);
@@ -174,7 +176,8 @@ function startScene (swiper, isActive=false) {
           }
         }
       });
-      swiper.el.addEventListener('pointerup', actveSceneTouchEnd = event => {
+      let eventName_end = (mobile_mod) ? 'touchend' : 'pointerup';
+      swiper.el.addEventListener(eventName_end, actveSceneTouchEnd = event => {
         if (swiper.activeIndex === saveIndex) {
           active_el.classList.add('_step-2');
           activeSlideDescription.classList.add('_active');
@@ -186,7 +189,7 @@ function startScene (swiper, isActive=false) {
             swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
           }
         }
-        swiper.el.removeEventListener('pointermove', actveSceneTouchMove);
+        swiper.el.removeEventListener(eventName_move, actveSceneTouchMove);
         swiper.allowSlideNext = false;
         swiper.allowSlidePrev = false;
       }, {once: true});

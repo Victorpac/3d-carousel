@@ -191,20 +191,20 @@ function startScene (swiper, isActive=false) {
 
   function actveSceneTouchStart_m (event) {
     if (scene.classList.contains('_active')) {
-      // if (event.x > windowWidth / 2) {
-      //   if (!description_is_act) { 
-      //     heroDescriptionSwipe(event);
-      //   }else {
-      //     actveSceneTouchStart(event);
-      //   }
-      // }else {
-      //   if (description_is_act) {
-      //     heroDescriptionSwipe(event);
-      //   }else {   
-      //     actveSceneTouchStart(event);
-      //   }
-      // }
-      actveSceneTouchStart(event);
+      if (event.x > windowWidth / 2) {
+        if (!description_is_act) { 
+          heroDescriptionSwipe(event);
+        }else {
+          actveSceneTouchStart(event);
+        }
+      }else {
+        if (description_is_act) {
+          heroDescriptionSwipe(event);
+        }else {   
+          actveSceneTouchStart(event);
+        }
+      }
+      // actveSceneTouchStart(event);
     }
   }
 

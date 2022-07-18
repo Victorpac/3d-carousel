@@ -54,7 +54,7 @@
     height: 100px;
   }
 
-  /* navigation menu */
+  /* navigation buttons */
   .scene-nav__wrapper {
     padding: 20px 40px;
   }
@@ -65,11 +65,28 @@
     width: 50px;
     height: 50px;
   }
-
 }
 
 
-@media (max-width: 420px) {
+@media (max-width: 1100px) {
+  /* SCENE */
+  /* navigation buttons */
+  .scene-nav {
+    width: 70%;
+  }
+}
+
+
+@media (max-width: 750px) {
+  /* SCENE */
+  /* navigation buttons */
+  .scene-nav {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 520px) {
   .anim-carousel__content {
     height: 90vh;
     transition: background 1s;
@@ -170,7 +187,7 @@
   }
 
 
-  /* NAVIGATION MENU */
+  /* navigation buttons */
   .scene-nav {
     width: 100%;
   }

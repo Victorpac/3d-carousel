@@ -21,7 +21,7 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
   },
   mousewheel: {
     forceToAxis: false,
-    releaseOnEdges: true,
+    releaseOnEdges: true
   },
   // Navigation arrows
   navigation: {
@@ -80,6 +80,9 @@ function startScene (swiper, isActive=false) {
   }
   sceneWrapper.style.background = active_bg_color;
   swiper.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
+  swiper.allowTouchMove = false;
+  swiper.allowSlideNext = false;
+  swiper.allowSlidePrev = false;
 
 
   for (let i = 0; i < slidesCount; i++) {
@@ -249,6 +252,7 @@ function slideExit (swiper, active_el, delayIndex) {
   
   let imageTransitionDelay = slidesCount * d_Index;
 
+
   active_el.removeEventListener('transitionend', secondAnimationStep);
   active_el.classList.remove('_step-2');
   activeSlideDescription.classList.remove('_active');
@@ -258,6 +262,10 @@ function slideExit (swiper, active_el, delayIndex) {
   scene.style.setProperty('--slide-offset-duration', `${sceneSlideOffsetDuration}ms`);
   sceneWrapper.style.background = 'unset';
   swiper.wrapperEl.style.transitionDuration = '1000ms';
+  swiper.allowTouchMove = true;
+  swiper.allowSlideNext = true;
+  swiper.allowSlidePrev = true;
+
   exit.style.removeProperty('display');
 
   for (let i = 0; i < slidesCount; i++) {

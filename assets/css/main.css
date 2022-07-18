@@ -66,14 +66,14 @@ body * {
 .scene__title {
   color: #fff;
   text-transform: uppercase;
-  font-size: 72px;
+  font-size: 62px;
   letter-spacing: -3px;
   word-spacing: 99999px;
 
   position: absolute;
   z-index: 4;
   display: block;
-  margin-top: 150px;
+  margin-top: 100px;
   padding: 0px 30px;
   transform: translate3d(0px, 0px, 0px) scale(1);
   opacity: 1;
@@ -89,7 +89,7 @@ body * {
   border-radius: 3px;
   border: none;
   display: block;
-  margin-top: 30px;
+  margin-top: 20px;
   background-color: rgb(255, 80, 80);
 }
 
@@ -104,8 +104,7 @@ body * {
 .scene-hero {
   --scene-slide-image-height: 300px;
   --hero-description-width: 40vw;
-
-  touch-action: none;
+ 
   text-align: center;
   height: 100%;
   display: flex;
@@ -144,6 +143,7 @@ body * {
   left: 0;
   transition-property: left;
   transition-duration: .7s;
+  touch-action: none;
 }
 .hero-description__title {
   text-transform: uppercase;
@@ -162,14 +162,14 @@ body * {
   text-transform: uppercase;
   display: table-caption;
   font-weight: bold;
-  font-size: 52px;
+  font-size: 46px;
   margin-top: 30px;
 }
 .hero-description__content {
   border-top: 1px #fff solid;
   border-bottom: 1px #fff solid;
-  margin: 20px 0px;
-  padding: 15px 0px;
+  margin: 15px 0px;
+  padding: 10px 0px;
 }
 .hero-desc__table-title {
   font-weight: lighter;
@@ -182,8 +182,8 @@ body * {
   font-size: 20px;
 }
 .hero-desc__table-row-name {
-  width: 30%;
-  padding: 10px 0px;
+  width: 40%;
+  padding: 7px 0px;
   vertical-align: top;
   opacity: .5;
 }

@@ -4,7 +4,7 @@ const mobileModActiveWidth      = 520;
 const mobile_mod                = windowWidth < mobileModActiveWidth;
 const activeSceneImageScale     = 3.5; // CSS property transform: scale()
 const sceneSlideOffsetDuration  = 1500; // ms
-const slideSwipeSensibility     = (mobile_mod) ? 0.67 : 0.33;
+const slideSwipeSensibility     = (mobile_mod) ? 0.2 : 0.1;
 const sceneActiveSlideWidth     = (mobile_mod) ? 95 : 70; // vw (vw = % of screen width)
 
 
@@ -20,8 +20,7 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
     },
   },
   mousewheel: {
-    forceToAxis: false,
-    releaseOnEdges: true
+    forceToAxis: true
   },
   // Navigation arrows
   navigation: {
@@ -71,6 +70,9 @@ function startScene (swiper, isActive=false) {
     scene.classList.add('_active');
     scene.style.setProperty('--scene-active-slide-width', `${sceneActiveSlideWidth}vw`);
     swiper.wrapperEl.style.transitionDuration = '1000ms';
+    swiper.allowTouchMove = false;
+    swiper.allowSlideNext = false;
+    swiper.allowSlidePrev = false;
     if (mobile_mod) {
       description_is_act = false;
       swiper.el.addEventListener('pointerdown', actveSceneTouchStart_m);
@@ -80,9 +82,6 @@ function startScene (swiper, isActive=false) {
   }
   sceneWrapper.style.background = active_bg_color;
   swiper.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
-  swiper.allowTouchMove = false;
-  swiper.allowSlideNext = false;
-  swiper.allowSlidePrev = false;
 
 
   for (let i = 0; i < slidesCount; i++) {
@@ -151,10 +150,11 @@ function startScene (swiper, isActive=false) {
       activeSlideDescription.classList.remove('_active');
       activeSlideDescription.style.removeProperty('left');
       
-      swiper.allowTouchMove = false;
+      swiper.allowSlideNext = true;
+      swiper.allowSlidePrev = true;
 
       swiper.el.addEventListener('pointermove', actveSceneTouchMove = event => {
-        if (Math.abs(startPoint-event.x) > saveSceneSlideWidth*slideSwipeSensibility) {
+        if (Math.abs(startPoint-event.x)/windowWidth > slideSwipeSensibility) {
           if (startPoint-event.x > 0) {
             if (swiper.activeIndex < swiper.slides.length-1) {
               startPoint = event.x;
@@ -187,6 +187,8 @@ function startScene (swiper, isActive=false) {
           }
         }
         swiper.el.removeEventListener('pointermove', actveSceneTouchMove);
+        swiper.allowSlideNext = false;
+        swiper.allowSlidePrev = false;
       }, {once: true});
     }
   }
@@ -207,7 +209,6 @@ function startScene (swiper, isActive=false) {
           actveSceneTouchStart(event);
         }
       }
-      // actveSceneTouchStart(event);
     }
   }
 
@@ -219,7 +220,7 @@ function startScene (swiper, isActive=false) {
 
     let endPoint = 0;
 
-    swiper.allowTouchMove = false;
+    
     activeSlideDescription.style.transitionDuration = '0ms';
     active_el.addEventListener('pointermove', heroDescriptionMove = event => {
       activeSlideDescription.style.left = `${((el_leftOffset-(startPoint-event.x))/windowWidth)*100}%`;
@@ -227,7 +228,6 @@ function startScene (swiper, isActive=false) {
     });
 
     active_el.addEventListener('pointerup', event => {
-      console.log(startPoint, endPoint);
       activeSlideDescription.style.transitionDuration = '700ms';
       active_el.removeEventListener('pointermove', heroDescriptionMove);
       activeSlideDescription.style.removeProperty('left');
@@ -290,6 +290,7 @@ function slideExit (swiper, active_el, delayIndex) {
       item.style.removeProperty('z-index');
       item.style.removeProperty('--slide-offset');
       item.style.removeProperty('--scene-active-slide-width');
+      item.style.removeProperty('transition-property');
 
       item.querySelector('.scene-hero__image').style.removeProperty('--slide-image-trans-delay');
       item.querySelector('.scene-hero__image').style.removeProperty('--slide-image-transform'); 

@@ -143,7 +143,6 @@ body * {
   left: 0;
   transition-property: left;
   transition-duration: .7s;
-  touch-action: none;
 }
 .hero-description__title {
   text-transform: uppercase;
@@ -205,6 +204,7 @@ body * {
 }
 
 .scene-exit {
+  user-select: none;
   color: #fff;
   font-size: 50px;
   font-family: fantasy;
@@ -217,7 +217,7 @@ body * {
 }
 
 
-/* Navigation menu */
+/* Navigation buttons */
 .scene-nav {
   width: 50%;
   position: absolute;

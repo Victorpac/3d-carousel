@@ -4,7 +4,7 @@ const mobileModActiveWidth      = 520;
 const mobile_mod                = windowWidth < mobileModActiveWidth;
 const activeSceneImageScale     = 3.5; // CSS property transform: scale()
 const sceneSlideOffsetDuration  = 1500; // ms
-const slideSwipeSensibility     = (mobile_mod) ? 0.2 : 0.1;
+const slideSwipeSensibility     = (mobile_mod) ? 0.25 : 0.1;
 const sceneActiveSlideWidth     = (mobile_mod) ? 95 : 70; // vw (vw = % of screen width)
 
 
@@ -47,7 +47,6 @@ const sceneCarousel     = new Swiper('.scene-carousel', {
 
 let description_is_act;
 let saveSceneSlideWidth  = sceneCarousel.slides[0].offsetWidth;
-let saveSceneTransform   = sceneCarousel.wrapperEl.style.transform;
 
 scene.style.setProperty('--slide-offset-duration', `${sceneSlideOffsetDuration}ms`);
 
@@ -66,7 +65,6 @@ function startScene (swiper, isActive=false) {
 
   
   if (!isActive) {
-    saveSceneTransform = swiper.wrapperEl.style.transform;
     scene.classList.add('_active');
     scene.style.setProperty('--scene-active-slide-width', `${sceneActiveSlideWidth}vw`);
     swiper.wrapperEl.style.transitionDuration = '1000ms';
@@ -74,11 +72,9 @@ function startScene (swiper, isActive=false) {
     swiper.allowSlideNext = false;
     swiper.allowSlidePrev = false;
     if (mobile_mod) {
-      description_is_act = false;
-      swiper.el.addEventListener('pointerdown', actveSceneTouchStart_m);
-    }else {
-      swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
+      description_is_act = false; 
     }
+    swiper.el.addEventListener('pointerdown', actveSceneTouchStart_m);
   }
   sceneWrapper.style.background = active_bg_color;
   swiper.wrapperEl.style.transform = 'translate3d(0px, 0px, 0px)';
@@ -129,31 +125,26 @@ function startScene (swiper, isActive=false) {
   }, {once: true});
 
   exit.addEventListener('click', () => {
-    if (mobile_mod) {
-      swiper.el.removeEventListener('pointerdown', actveSceneTouchStart_m);
-    }else {
-      swiper.el.removeEventListener('pointerdown', actveSceneTouchStart);
-    }
-    swiper.allowTouchMove = true;
+    swiper.el.removeEventListener('pointerdown', actveSceneTouchStart_m);
     slideExit(swiper, active_el, delayIndex);
   }, {once: true});
 
 
   function actveSceneTouchStart (event) {
     if (scene.classList.contains('_active')) {
-      const saveIndex = swiper.activeIndex;
-      const active_el = swiper.slides[saveIndex];
-      const activeSlideDescription = active_el.querySelector('.hero-description');
+      const saveIndex               = swiper.activeIndex;
+      const active_el               = swiper.slides[saveIndex];
+      const activeSlideDescription  = active_el.querySelector('.hero-description');
       
-      let startPoint = event.x;
+      let eventName_move  = (mobile_mod) ? 'touchmove' : 'pointermove';
+      let eventName_end   = (mobile_mod) ? 'touchend' : 'pointerup';
+      let startPoint      = event.x;
+
       active_el.classList.remove('_step-2');
       activeSlideDescription.classList.remove('_active');
-      activeSlideDescription.style.removeProperty('left');
       
       swiper.allowSlideNext = true;
       swiper.allowSlidePrev = true;
-
-      let eventName_move = (mobile_mod) ? 'touchmove' : 'pointermove';
       swiper.el.addEventListener(eventName_move, actveSceneTouchMove = event => {
         let current_x = event.x ?? event.changedTouches[0].clientX;
         if (Math.abs(startPoint-current_x)/windowWidth > slideSwipeSensibility) {
@@ -176,7 +167,6 @@ function startScene (swiper, isActive=false) {
           }
         }
       });
-      let eventName_end = (mobile_mod) ? 'touchend' : 'pointerup';
       swiper.el.addEventListener(eventName_end, actveSceneTouchEnd = event => {
         if (swiper.activeIndex === saveIndex) {
           active_el.classList.add('_step-2');
@@ -184,10 +174,9 @@ function startScene (swiper, isActive=false) {
         }else {
           if (mobile_mod) {
             description_is_act = false;
-            swiper.el.addEventListener('pointerdown', actveSceneTouchStart_m);
-          }else {
-            swiper.el.addEventListener('pointerdown', actveSceneTouchStart);
+            activeSlideDescription.style.removeProperty('left');
           }
+          swiper.el.addEventListener('pointerdown', actveSceneTouchStart_m);
         }
         swiper.el.removeEventListener(eventName_move, actveSceneTouchMove);
         swiper.allowSlideNext = false;
@@ -198,19 +187,15 @@ function startScene (swiper, isActive=false) {
 
 
   function actveSceneTouchStart_m (event) {
-    if (scene.classList.contains('_active')) {
-      if (event.x > windowWidth / 2) {
-        if (!description_is_act) { 
-          heroDescriptionSwipe(event);
+    if (scene.classList.contains('_active')) { 
+      if (mobile_mod) {
+        if (event.x > windowWidth / 2) {
+          !description_is_act ? heroDescriptionSwipe(event) : actveSceneTouchStart(event);
         }else {
-          actveSceneTouchStart(event);
+          description_is_act ? heroDescriptionSwipe(event) : actveSceneTouchStart(event);
         }
       }else {
-        if (description_is_act) {
-          heroDescriptionSwipe(event);
-        }else {   
-          actveSceneTouchStart(event);
-        }
+        actveSceneTouchStart(event);
       }
     }
   }
@@ -225,16 +210,18 @@ function startScene (swiper, isActive=false) {
 
     
     activeSlideDescription.style.transitionDuration = '0ms';
-    active_el.addEventListener('pointermove', heroDescriptionMove = event => {
-      activeSlideDescription.style.left = `${((el_leftOffset-(startPoint-event.x))/windowWidth)*100}%`;
-      endPoint = event.x;
+    active_el.addEventListener('touchmove', heroDescriptionMove = event => {
+      let touch_posX = event.changedTouches[0].clientX;
+      activeSlideDescription.style.left = `${((el_leftOffset-(startPoint-touch_posX))/windowWidth)*100}%`;
     });
 
-    active_el.addEventListener('pointerup', event => {
+    active_el.addEventListener('touchend', heroDescriptionMoveEnd = event => {
+      endPoint = event.changedTouches[0].clientX;
+
       activeSlideDescription.style.transitionDuration = '700ms';
-      active_el.removeEventListener('pointermove', heroDescriptionMove);
+      active_el.removeEventListener('touchmove', heroDescriptionMove);
       activeSlideDescription.style.removeProperty('left');
-      description_is_act = false; 
+      description_is_act = false;
       if ((startPoint > endPoint) && (endPoint !== 0)) {
         if ((startPoint-endPoint)/windowWidth > 0.2) {
           activeSlideDescription.style.left = '0px';
@@ -257,12 +244,16 @@ function slideExit (swiper, active_el, delayIndex) {
 
 
   active_el.removeEventListener('transitionend', secondAnimationStep);
+  active_el.removeEventListener('touchend', heroDescriptionMoveEnd);
   active_el.classList.remove('_step-2');
+
+  description_is_act = false;
   activeSlideDescription.classList.remove('_active');
   activeSlideDescription.style.removeProperty('left');
 
   scene.classList.remove('_active');
   scene.style.setProperty('--slide-offset-duration', `${sceneSlideOffsetDuration}ms`);
+
   sceneWrapper.style.background = 'unset';
   swiper.wrapperEl.style.transitionDuration = '1000ms';
   swiper.allowTouchMove = true;
@@ -288,7 +279,7 @@ function slideExit (swiper, active_el, delayIndex) {
   }
 
   active_el.addEventListener('transitionend', () => {
-    swiper.wrapperEl.style.transform = saveSceneTransform;
+    swiper.update();
     swiper.slides.forEach(item => {
       item.style.removeProperty('z-index');
       item.style.removeProperty('--slide-offset');

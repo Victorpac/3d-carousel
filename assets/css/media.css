@@ -41,7 +41,6 @@
     margin-top: 0px;
   }
   .hero-desc__table {
-    width: 40vw;
     font-size: 16px;
   }
   .hero-desc__table-row-name {
@@ -141,6 +140,8 @@
     padding: 20px;
     border-radius: 20px;
     left: 0;
+    overflow-y: unset;
+    height: auto;
   }
   .hero-description__title {
     font-size: 14px;
@@ -163,7 +164,6 @@
     margin-top: 4px;
   }
   .hero-desc__table {
-    width: 90vw;
     font-size: small;
   }
   .hero-desc__table-row-name {

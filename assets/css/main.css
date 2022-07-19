@@ -143,6 +143,8 @@ body * {
   left: 0;
   transition-property: left;
   transition-duration: .7s;
+  overflow-y: scroll;
+  height: 70vh;
 }
 .hero-description__title {
   text-transform: uppercase;
@@ -177,7 +179,6 @@ body * {
   margin-top: 10px;
 }
 .hero-desc__table {
-  width: 35vw;
   font-size: 20px;
 }
 .hero-desc__table-row-name {

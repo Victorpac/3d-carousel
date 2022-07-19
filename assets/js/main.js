@@ -5,7 +5,7 @@ const mobile_mod                = windowWidth < mobileModActiveWidth;
 const activeSceneImageScale     = 3.5; // CSS property transform: scale()
 const sceneSlideOffsetDuration  = 1500; // ms
 const slideSwipeSensibility     = (mobile_mod) ? 0.25 : 0.1;
-const sceneActiveSlideWidth     = (mobile_mod) ? 95 : 70; // vw (vw = % of screen width)
+const sceneActiveSlideWidth     = (mobile_mod) ? 95 : 80; // vw (vw = % of screen width)
 
 
 const scene             = document.querySelector('.anim-carousel');
@@ -244,7 +244,7 @@ function slideExit (swiper, active_el, delayIndex) {
 
 
   active_el.removeEventListener('transitionend', secondAnimationStep);
-  active_el.removeEventListener('touchend', heroDescriptionMoveEnd);
+  if (mobile_mod) active_el.removeEventListener('touchend', heroDescriptionMoveEnd);
   active_el.classList.remove('_step-2');
 
   description_is_act = false;
